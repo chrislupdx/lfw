@@ -4,5 +4,5 @@ from . import views
 app_name = 'lfw' # for namespacing
 urlpatterns = [
     path('', views.index, name='index'),
-
+	path('add_entry/', views.add_entry, name='add_entry')
 ]

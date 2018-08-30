@@ -1,0 +1,19 @@
+{% extends 'lfw/base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<p>We Get What We Deserve</p>
+
+{% include "lfw/Jobappview.html"%}
+
+<h1>submit an entry </h1>
+<form action="{% url 'lfw:add_entry'%}" method="post">
+{% csrf_token %}
+<input type="textfield" name="JobappName"/>
+<input type="textfield" name="CompanyName"/>
+<button type="submit">Submit App Entry</button>
+    </form>
+
+{# {% extends "comment_form.html" %} #}
+{% endblock %}
