@@ -18,6 +18,8 @@ from django.contrib import admin
 from lfw import views
 
 urlpatterns = [
+    
     path('admin/', admin.site.urls),
-    path('', include('lfw.urls')) # Note: all your app urls will start with this path
+    path('', include('lfw.urls')), # Note: all your app urls will start with this path
+    path('accounts/', include('django.contrib.auth.urls')),
 ]

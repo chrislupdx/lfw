@@ -8,4 +8,3 @@ class Jobapp(models.Model):
 
 class Human(models.Model):
 	name = models.TextField()
-

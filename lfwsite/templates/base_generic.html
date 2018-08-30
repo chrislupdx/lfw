@@ -1,0 +1,25 @@
+{% load static %}
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'myapp/style.css' %}"/>
+</head>
+<body>
+    <h1>{% block title %}{% endblock %}</h1>
+    <hr/>
+    {% block content %}
+    {% endblock %}
+    <hr/>
+    (c) myapp inc
+</body>
+
+<ul class="sidebar-nav">
+   {% if user.is_authenticated %}
+     <li>User: {{ user.get_username }}</li>
+     <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>   
+   {% else %}
+     <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>   
+   {% endif %} 
+  </ul>
+
+</body>
+
+</html>
