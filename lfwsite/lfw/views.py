@@ -3,8 +3,8 @@ from django.shortcuts import render, redirect, get_object_or_404, reverse
 from .models import Jobapp
 
 def index(request):
-	jobapp = Jobapp.objects.all()	
-	return render(request,'lfw/index.html')
+	jobapps = Jobapp.objects.all()	
+	return render(request,'lfw/index.html', {'jobapps': jobapps})
 
 def add_entry(request):
 	

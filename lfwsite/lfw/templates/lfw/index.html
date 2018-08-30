@@ -4,16 +4,15 @@
 
 {% block content %}
 <p>We Get What We Deserve</p>
-  {% for job in Jobapp %} 
-     {{Jobapp.company}}
-     {{Jobapp.jobapp_name}}
+<ul>
+  {% for thing in jobapps %} 
+     <li>{{thing.company}}</li>
+     <li>{{thing.jobapp_name}}</li>
   {% endfor %}
-
-
-
+</ul>
 <p> “I am not omniscient, but I know a lot.” </p>
+
 	{% include "lfw/Jobappview.html"%}
-<p> </p>
 
 <p>submit an entry </p>
 <form action="{% url 'lfw:add_entry'%}" method="post">
@@ -23,5 +22,4 @@
 <button type="submit">Submit App Entry</button>
     </form>
 
-{# {% extends "comment_form.html" %} #}
 {% endblock %}
