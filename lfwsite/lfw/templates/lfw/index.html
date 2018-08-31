@@ -4,22 +4,8 @@
 
 {% block content %}
 <p>We Get What We Deserve</p>
-<ul>
-  {% for thing in jobapps %} 
-     <li>{{thing.company}}</li>
-     <li>{{thing.jobapp_name}}</li>
-  {% endfor %}
-</ul>
+
 <p> “I am not omniscient, but I know a lot.” </p>
 
-	{% include "lfw/Jobappview.html"%}
-
-<p>submit an entry </p>
-<form action="{% url 'lfw:add_entry'%}" method="post">
-{% csrf_token %}
-<input type="textfield" name="JobappName"/>
-<input type="textfield" name="CompanyName"/>
-<button type="submit">Submit App Entry</button>
-    </form>
-
 {% endblock %}
+

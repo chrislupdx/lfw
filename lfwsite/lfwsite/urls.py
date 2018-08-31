@@ -15,11 +15,17 @@ Including another URLconf
 """
 from django.urls import path, include
 from django.contrib import admin
-from lfw import views
+from lfwsite import views
 
 urlpatterns = [
     
     path('admin/', admin.site.urls),
     path('', include('lfw.urls')), # Note: all your app urls will start with this path
+]
+
+#Add Django site authentication urls (for login, logout, password management)
+urlpatterns += [
     path('accounts/', include('django.contrib.auth.urls')),
+    path('registration/register/', views.register, name='register'),
+
 ]
