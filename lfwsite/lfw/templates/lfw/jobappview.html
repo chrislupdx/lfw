@@ -1,4 +1,7 @@
-<table class="centered, highlight, striped">
+{% extends 'lfw/base.html' %}
+
+{% block content%}
+<table>
 	<thead>
 		<tr>
 			<th>Name</th>
@@ -20,3 +23,4 @@
 	</tbody>
 {% endfor %}
 </table>
+{% endblock %}

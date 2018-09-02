@@ -5,6 +5,7 @@ from .forms import Jobappform
 
 def index(request):
 	jobapps = Jobapp.objects.all()	
+	
 	return render(request,'lfw/index.html', {'jobapps': jobapps})
 
 def display_jobappview(request):
