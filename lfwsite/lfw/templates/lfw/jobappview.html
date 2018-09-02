@@ -1,7 +1,5 @@
-{% extends 'lfw/base.html' %}
-
 {% block content%}
-<table>
+<table class>
 	<thead>
 		<tr>
 			<th>Name</th>
@@ -12,10 +10,11 @@
 			<th>Coverletter</th>
 		</tr>
 	</thead>
-	{{fields}}
-	{% for thing in jobapps %} 
+	
 	<tbody>
 		<tr>
+			{{fields}}
+			{% for thing in jobapps %} 
 			{% for field in fields %}
 				<td>{{thing.field}}</td>
 			{% endfor %}
