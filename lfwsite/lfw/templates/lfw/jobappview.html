@@ -1,25 +1,25 @@
 {% block content%}
-<table class>
+
+<h4>JobApps</h4>
+<table class = "responsive-table">
 	<thead>
 		<tr>
-			<th>Name</th>
-			<th>Description</th>
-			<th>Company</th>
-			<th>URL</th>
-			<th>Resume</th>
-			<th>Coverletter</th>
+			<th>name</th>
+			<th>description</th>
+			<th>company</th>
+			<th>contact</th>
 		</tr>
 	</thead>
 	
+{% for item in jobapps %}
 	<tbody>
 		<tr>
-			{{fields}}
-			{% for thing in jobapps %} 
-			{% for field in fields %}
-				<td>{{thing.field}}</td>
-			{% endfor %}
+			<td>{{ item.name }}</td>
+			<td>{{ item.description }}</td>
+			<td>{{ item.company }}</td>
+			<td>{{ item.contact }}</td>
 		</tr>
 	</tbody>
 {% endfor %}
-</table>
+</table>	
 {% endblock %}

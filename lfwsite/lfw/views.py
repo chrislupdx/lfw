@@ -11,11 +11,11 @@ def index(request):
 def display_jobappview(request):
 	jobapps = Jobapp.objects.all()
 	fields = [f.name for f in Jobapp._meta.get_fields()]
+	
 	print(fields)
 	return render(request,'lfw/jobappview.html', {'jobapps': jobapps, 'fields':fields})
 
 def add_entry(request):
-	
 	if request.method == 'POST':
 		form = Jobappform(request.POST)
 		if form.is_valid():
