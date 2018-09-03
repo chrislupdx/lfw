@@ -1,0 +1,12 @@
+{% block content %}
+
+<p>Submit Resume! </p>
+
+
+<form action="{% url 'lfw:add_res'%}" method="post">
+	{% csrf_token %}
+    {{ form }}
+	<button type="submit">Submit Resume </button>
+</form>
+
+{% endblock %}

@@ -1,7 +1,7 @@
 from django.http import HttpResponse, HttpResponseRedirect, HttpRequest
 from django.shortcuts import render, redirect, get_object_or_404, reverse
-from .models import Jobapp
-from .forms import Jobappform, Resclform
+from .models import Jobapp, Resume, Coverletter
+from .forms import Jobappform, Resumeform, Clform
 
 def index(request):
 	jobapps = Jobapp.objects.all()	
@@ -27,16 +27,30 @@ def add_entry(request):
 	context = {'form': form}
 	return render(request, 'lfw/jobappform.html', context)
 
-def add_rescl(request):
+def add_res(request):
 	if request.method == 'POST':
-		form = Resclform(request.POST)
+		form = Resumeform(request.POST)
 		if form.is_valid():
-			rescl = form.saves(commit=False)
-			jobapp.user = request.user
-			jobapp.save()
+			resume = form.save(commit=False)
+			resume.user = request.user
+			resume.save()
+			
 			return redirect(reverse('lfw:index'))
-	form = Resclform()
+	form = Resumeform()
 	context = {'form': form}
+	return render(request, 'lfw/Res_form.html', context)
+
 #is this a context that's getting passed bewteen the front to middle or middle to back?
 
-	return render(request, 'lfw/jobappform.html', context)
+def add_cl(request):
+	if request.method == 'POST':
+		form = Clform(request.POST)
+		if form.is_valid():
+			cl = form.save(commit=False)
+			cl.user = request.user
+			cl.save()
+			return redirect(reverse('lfw:index'))
+	form = Clform()
+	context = {'form': form}
+	return render(request, 'lfw/cl_form.html', context)
+#is this a context that's getting passed bewteen the front to middle or middle to back?

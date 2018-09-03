@@ -74,11 +74,13 @@ class Contact(models.Model):
 		return self.app_contact_status in (self.HIRING_MANAGER, self.JOB_REFERRAL)
 
 class Resume(models.Model):
+	name = models.CharField(max_length=50)
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	url = models.URLField(null=True, blank=True)
 
 
-class CoverLetter(models.Model):
+class Coverletter(models.Model):
+	name = models.CharField(max_length=50)
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	url = models.URLField(null=True, blank=True)
 
@@ -88,12 +90,12 @@ class Jobapp(models.Model):
 	description = models.TextField(null=True, blank=True)
 	company = models.CharField(max_length=50, default='No company')
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
-	contact = models.ManyToManyField(Contact, blank=True)
+	followup_touches = models.IntegerField(null=True, blank=True)
 
+	contact = models.ManyToManyField(Contact, blank=True)
 	url = models.URLField(null=True, blank=True)
 	resume = models.ForeignKey(Resume, on_delete=models.SET_NULL, null=True, blank=True)
-	coverletter = models.ForeignKey(CoverLetter, on_delete=models.SET_NULL, null=True, blank=True) 
-	followup_touches = models.IntegerField(null=True, blank=True)
+	coverletter = models.ForeignKey(Coverletter, on_delete=models.SET_NULL, null=True, blank=True) 
 	referred_by = models.ForeignKey(Contact, on_delete=models.SET_NULL, null=True, blank=True, related_name='referred_by')
 
 	# first_contacted = models.DateTimeField(default=datetime.now())

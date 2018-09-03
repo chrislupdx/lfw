@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm
-from .models import Jobapp
+from .models import Jobapp, Resume, Coverletter
 
 # class Jobappform(forms.Form):
  	# name = models.CharField(max_length=50)
@@ -26,9 +26,14 @@ class Jobappform(ModelForm):
         # the model to associate with the form
         model = Jobapp
         # a list of all the models' fields you want in the form
-        exclude = ['user', 'followup_touches', 'first_contacted', 'last_contacted', 'date_foundbyuser', 'date_due', 'date_applied','date_created']
+        exclude = ['resume', 'coverletter', 'user', 'followup_touches', 'first_contacted', 'last_contacted', 'date_foundbyuser', 'date_due', 'date_applied','date_created']
 
-class Resclform(ModelForm):
+class Resumeform(ModelForm):
 	class Meta:
-		model = Jobapp
-		fields = ('resume', 'coverletter')
+		model = Resume
+		fields = ('url', 'name',)
+
+class Clform(ModelForm):
+	class Meta:
+		model = Coverletter
+		fields = ('url', 'name',)
