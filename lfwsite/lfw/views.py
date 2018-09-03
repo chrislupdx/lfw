@@ -1,7 +1,7 @@
 from django.http import HttpResponse, HttpResponseRedirect, HttpRequest
 from django.shortcuts import render, redirect, get_object_or_404, reverse
 from .models import Jobapp
-from .forms import Jobappform
+from .forms import Jobappform, Resclform
 
 def index(request):
 	jobapps = Jobapp.objects.all()	
@@ -25,4 +25,18 @@ def add_entry(request):
 			return redirect(reverse('lfw:index'))
 	form = Jobappform()
 	context = {'form': form}
+	return render(request, 'lfw/jobappform.html', context)
+
+def add_rescl(request):
+	if request.method == 'POST':
+		form = Resclform(request.POST)
+		if form.is_valid():
+			rescl = form.saves(commit=False)
+			jobapp.user = request.user
+			jobapp.save()
+			return redirect(reverse('lfw:index'))
+	form = Resclform()
+	context = {'form': form}
+#is this a context that's getting passed bewteen the front to middle or middle to back?
+
 	return render(request, 'lfw/jobappform.html', context)

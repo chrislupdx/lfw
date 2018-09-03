@@ -27,3 +27,8 @@ class Jobappform(ModelForm):
         model = Jobapp
         # a list of all the models' fields you want in the form
         exclude = ['user', 'followup_touches', 'first_contacted', 'last_contacted', 'date_foundbyuser', 'date_due', 'date_applied','date_created']
+
+class Resclform(ModelForm):
+	class Meta:
+		model = Jobapp
+		fields = ('resume', 'coverletter')

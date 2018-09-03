@@ -1,0 +1,9 @@
+{% block content %}
+
+<form action="{% url 'lfw:add_rscl'%}" method="post">
+	{% csrf_token %}
+    {{ form }}
+	<button type="submit">Submit Resume/CoverLetter </button>
+</form>
+
+{% endblock %}

@@ -1,10 +1,11 @@
 {% block content %}
 
-<p>submit an entry </p>
+<p>Submit a Resume/Cover Letter </p>
+
 <form action="{% url 'lfw:add_entry'%}" method="post">
 	{% csrf_token %}
     {{ form }}
-	<button type="submit">Submit App Entry</button>
+	<button type="submit">Submit Resume/Cover Letter </button>
 </form>
 
 {% endblock %}
