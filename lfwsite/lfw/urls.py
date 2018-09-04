@@ -9,6 +9,7 @@ urlpatterns = [
 	path('add_res/', views.add_res, name='add_res'),
 	path('add_cl/', views.add_cl, name='add_cl'),
 	path('display_jobappview/', views.display_jobappview, name='display_jobappview'),
+	path('display_pipeline/', views.display_pipeline, name='display_pipeline'),
 ]
 
 #what am I trying to do here?

@@ -74,16 +74,15 @@ class Contact(models.Model):
 		return self.app_contact_status in (self.HIRING_MANAGER, self.JOB_REFERRAL)
 
 class Resume(models.Model):
-	name = models.CharField(max_length=50)
+	name = models.CharField(max_length=50, blank=True, null=True)
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	url = models.URLField(null=True, blank=True)
 
 
 class Coverletter(models.Model):
-	name = models.CharField(max_length=50)
+	name = models.CharField(max_length=50, blank=True, null=True)
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	url = models.URLField(null=True, blank=True)
-
 
 class Jobapp(models.Model):
 	name = models.CharField(max_length=50)
@@ -91,16 +90,27 @@ class Jobapp(models.Model):
 	company = models.CharField(max_length=50, default='No company')
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	followup_touches = models.IntegerField(null=True, blank=True)
-
 	contact = models.ManyToManyField(Contact, blank=True)
 	url = models.URLField(null=True, blank=True)
 	resume = models.ForeignKey(Resume, on_delete=models.SET_NULL, null=True, blank=True)
 	coverletter = models.ForeignKey(Coverletter, on_delete=models.SET_NULL, null=True, blank=True) 
 	referred_by = models.ForeignKey(Contact, on_delete=models.SET_NULL, null=True, blank=True, related_name='referred_by')
 
+	JOBAPP_STATS_CHOICES = (
+		('PS', 'PROSPECT'),
+		('RO', 'REACHEDOUT'),
+		('QD', 'QUALIFIED'),
+		('SN', 'SCREENING'),
+		)
+	pipeline_status = models.CharField(
+		max_length=2,
+		choices=JOBAPP_STATS_CHOICES,
+		default='PS',
+		)
+
 	# first_contacted = models.DateTimeField(default=datetime.now())
 	# last_contacted = models.DateTimeField(default=datetime.now())
-	# date_foundbyuser = models.DateTimeField(default=datetime.now())
+	# date_rolecreated(likeoldestdate) = models.DateTimeField(default=datetime.now())
 	# date_due = models.DateTimeField(default=datetime.now())
 	# date_applied = models.DateTimeField(default=datetime.now())
 	# date_created = models.DateTimeField(default=datetime.now())

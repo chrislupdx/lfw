@@ -1,0 +1,35 @@
+   <table class="responsive-table">      
+        <tbody>
+          <tr>
+            <td>Prospected</td>
+          {% for item in prospects %}
+              <td>
+                {% include "lfw/app_card.html" with jobapp=item %}
+              </td>
+          {% endfor %}
+          </tr>
+          <tr>
+            <td>Reachedout</td>
+           {% for item in reachedout %}
+              <td>
+                {% include "lfw/app_card.html" with jobapp=item %}
+              </td>
+          {% endfor %}
+          </tr>
+          <tr>
+            <td>Qualified</td>
+           {% for item in qualified %}
+              <td>
+                {% include "lfw/app_card.html" with jobapp=item %}
+              </td>
+          {% endfor %}
+          </tr><tr>
+            <td>Screening</td>
+           {% for item in screening %}
+              <td>
+                {% include "lfw/app_card.html" with jobapp=item %}
+              </td>
+          {% endfor %}
+          </tr>
+        </tbody>
+      </table>
