@@ -36,6 +36,7 @@ class Company(models.Model):
 		return self.app_contact_status in (self.TINY, self.LITTLE, self.SMALL, self.SMALLISH, self.MEDIUM)
 
 class Contact(models.Model):
+	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	first_name = models.CharField(max_length=25, null=True, blank=True)
 	last_name = models.CharField(max_length=25, null=True, blank=True)
 	company = models.ForeignKey(Company, on_delete=models.SET_NULL, null=True, blank=True)
@@ -47,10 +48,18 @@ class Contact(models.Model):
 	years_at_company = models.IntegerField(null=True, blank=True)
 	title = models.CharField(max_length=50)
 	
-	# date_met = models.DateTimeField(default=datetime.now())
-	# last_soft_communication = models.DateTimeField(null=True, blank=True)
-	# last_contacted = models.DateTimeField(default=datetime.now())
-	# first_contacted = models.DateTimeField(default=datetime.now())
+	date_met = models.DateTimeField(blank=True, null=True)
+	last_soft_communication = models.DateTimeField(blank=True, null=True)
+	last_contacted = models.DateTimeField(blank=True, null=True)
+	first_contacted = models.DateTimeField(blank=True, null=True)
+
+	first_contacted = models.DateTimeField(default=datetime.now())
+	last_contacted = models.DateTimeField(default=datetime.now())
+	date_rolecreated = models.DateTimeField(blank=True, null=True)
+	date_due = models.DateTimeField(default=datetime.now())
+	date_applied = models.DateTimeField(default=datetime.now())
+	date_created = models.DateTimeField(default=datetime.now())
+
 
 	UNDEFINED = 5
 	SOCIAL = 10
@@ -69,7 +78,6 @@ class Contact(models.Model):
 		choices=PIPELINE_STATUS_CHOICES,
 		default=UNDEFINED,
 		)
-
 	def is_app_related(self):
 		return self.app_contact_status in (self.HIRING_MANAGER, self.JOB_REFERRAL)
 
@@ -96,6 +104,13 @@ class Jobapp(models.Model):
 	coverletter = models.ForeignKey(Coverletter, on_delete=models.SET_NULL, null=True, blank=True) 
 	referred_by = models.ForeignKey(Contact, on_delete=models.SET_NULL, null=True, blank=True, related_name='referred_by')
 
+	first_contacted = models.DateTimeField(default=datetime.now())
+	last_contacted = models.DateTimeField(default=datetime.now())
+	date_rolecreated = models.DateTimeField(blank=True, null=True)
+	date_due = models.DateTimeField(default=datetime.now())
+	date_applied = models.DateTimeField(default=datetime.now())
+	date_created = models.DateTimeField(default=datetime.now())
+
 	JOBAPP_STATS_CHOICES = (
 		('PS', 'PROSPECT'),
 		('RO', 'REACHEDOUT'),
@@ -107,10 +122,3 @@ class Jobapp(models.Model):
 		choices=JOBAPP_STATS_CHOICES,
 		default='PS',
 		)
-
-	# first_contacted = models.DateTimeField(default=datetime.now())
-	# last_contacted = models.DateTimeField(default=datetime.now())
-	# date_rolecreated(likeoldestdate) = models.DateTimeField(default=datetime.now())
-	# date_due = models.DateTimeField(default=datetime.now())
-	# date_applied = models.DateTimeField(default=datetime.now())
-	# date_created = models.DateTimeField(default=datetime.now())
