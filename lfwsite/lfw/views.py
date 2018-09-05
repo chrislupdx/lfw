@@ -12,8 +12,10 @@ def display_jobappview(request):
 	print(fields)
 	return render(request,'lfw/jobappview.html', {'jobapps': jobapps, 'fields':fields})
 
-def display_pipeline(request):
+def display_canvas(request):
+	return render(request,'lfw/canvas.html', status_context())
 
+def display_pipeline(request):
 	return render(request,'lfw/pipeline.html', status_context())
 
 def add_entry(request):
