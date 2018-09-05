@@ -1,4 +1,5 @@
-from django.http import HttpResponse, HttpResponseRedirect, HttpRequest
+from django.core import serializers
+from django.http import HttpResponse, HttpResponseRedirect, HttpRequest, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404, reverse
 from .models import Jobapp, Resume, Coverletter
 from .forms import Jobappform, Resumeform, Clform
@@ -12,7 +13,12 @@ def display_jobappview(request):
 	print(fields)
 	return render(request,'lfw/jobappview.html', {'jobapps': jobapps, 'fields':fields})
 
+def canvas_json(request):
+	jobapps = serializers.serialize("json", Jobapp.objects.all(), fields=('pipeline_status'))
+	return JsonResponse(jobapps, safe=False) #this return could be redundant, who knows
+
 def display_canvas(request):
+	pipeline_individual_count = Jobapp.objects.all()
 	return render(request,'lfw/canvas.html', status_context())
 
 def display_pipeline(request):
@@ -57,7 +63,6 @@ def add_cl(request):
 	context = {'form': form}
 	return render(request, 'lfw/cl_form.html', context)
 #is this a context that's getting passed bewteen the front to middle or middle to back?
-
 
 def status_context():
 	jobapps = Jobapp.objects.all()

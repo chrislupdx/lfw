@@ -110,6 +110,7 @@ class Jobapp(models.Model):
 	date_due = models.DateTimeField(default=datetime.now())
 	date_applied = models.DateTimeField(default=datetime.now())
 	date_created = models.DateTimeField(default=datetime.now())
+	
 
 	JOBAPP_STATS_CHOICES = (
 		('PS', 'PROSPECT'),

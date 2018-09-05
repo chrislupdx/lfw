@@ -11,6 +11,7 @@ urlpatterns = [
 	path('display_jobappview/', views.display_jobappview, name='display_jobappview'),
 	path('display_pipeline/', views.display_pipeline, name='display_pipeline'),
 	path('display_canvas/', views.display_canvas, name='display_canvas'),
+	path('canvas_json/', views.canvas_json, name='canvas_json'),
 ]
 
 #what am I trying to do here?
