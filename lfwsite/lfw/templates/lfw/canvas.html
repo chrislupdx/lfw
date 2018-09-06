@@ -18,19 +18,21 @@ fetch('http://localhost:8000/canvas_json/')
 function displayChart(jobData) {
     console.log(JSON.parse(jobData))
     jobData = JSON.parse(jobData)
-    var labels = ['PS', 'RO', 'QD', 'SN']
+    let labels = ['PS', 'RO', 'QD', 'SN']
     console.log(labels)
-
-    var data = jobData.map(e => e.fields.pipeline_status);
+    let data = []
+    for (let i=0; i<labels.length; ++i) {
+        data.push(jobData.filter(e => e.fields.pipeline_status == labels[i]).length)
+    }
+    console.log(data)
 
     var ctx = document.getElementById("myChart");
     var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
         labels: ["Prospect", "Reachout", "Qualified", "Screenng"],
-        yAxisID: ["Thoughts+Prayers"],
         datasets: [{
-            label: '# of Votes',
+            label: '# of Apps',
             data: data,
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',

@@ -13,6 +13,14 @@ def display_jobappview(request):
 	print(fields)
 	return render(request,'lfw/jobappview.html', {'jobapps': jobapps, 'fields':fields})
 
+def display_elapsed(request):
+	pipeline_individual_count = Jobapp.objects.all()
+	return render(request,'lfw/display_elapsed.html', status_context())
+
+def elapsed_json(request):
+	jobapps = serializers.serialize("json", Jobapp.objects.all(), fields=('date_created'))
+	return JsonResponse(jobapps, safe=False) #this return could be redundant, who knows
+
 def canvas_json(request):
 	jobapps = serializers.serialize("json", Jobapp.objects.all(), fields=('pipeline_status'))
 	return JsonResponse(jobapps, safe=False) #this return could be redundant, who knows
