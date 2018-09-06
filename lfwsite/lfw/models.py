@@ -1,5 +1,5 @@
 from django.db import models
-from datetime import datetime
+from datetime import datetime, timedelta, timezone
 from django.contrib.auth.models import User
 
 class Company(models.Model):
@@ -85,7 +85,7 @@ class Resume(models.Model):
 	name = models.CharField(max_length=50, blank=True, null=True)
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	url = models.URLField(null=True, blank=True)
-	date_created = models.DateTimeField(default=datetime.now())
+	date_created = models.DateTimeField(blank=True, null=True)
 
 
 class Coverletter(models.Model):
@@ -105,13 +105,13 @@ class Jobapp(models.Model):
 	coverletter = models.ForeignKey(Coverletter, on_delete=models.SET_NULL, null=True, blank=True) 
 	referred_by = models.ForeignKey(Contact, on_delete=models.SET_NULL, null=True, blank=True, related_name='referred_by')
 
-	first_contacted = models.DateTimeField(default=datetime.now())
-	last_contacted = models.DateTimeField(default=datetime.now())
+	first_contacted = models.DateTimeField(blank=True, null=True)
+	last_contacted = models.DateTimeField(blank=True, null=True)
 	date_rolecreated = models.DateTimeField(blank=True, null=True)
-	date_due = models.DateTimeField(default=datetime.now())
-	date_applied = models.DateTimeField(default=datetime.now())
-	date_created = models.DateTimeField(default=datetime.now())
-	
+	date_due = models.DateTimeField(blank=True, null=True)
+	date_applied = models.DateTimeField(blank=True, null=True)
+	date_created = models.DateTimeField(blank=True, null=True)
+
 
 	JOBAPP_STATS_CHOICES = (
 		('PS', 'PROSPECT'),
@@ -124,3 +124,9 @@ class Jobapp(models.Model):
 		choices=JOBAPP_STATS_CHOICES,
 		default='PS',
 		)
+
+	@property	
+	def time_elapsed(self):
+		now = datetime.now(timezone.utc)
+		elapsed = now - self.date_created
+		return elapsed
