@@ -1,12 +1,21 @@
 {% extends 'lfw/base.html' %}
-
 {% block title %}Argo{% endblock %}
-
 {% block content %}
-<h3>We Get What We Deserve</h3>
-{% include "lfw/jobappview.html" %}
-<p> “I am not omniscient, but I know a lot.” </p>
+	<div class="container dashboard">
+		<h3>We Get What We Deserve</h3>
+		<div class="row">
+			<div class="col s9">
+			{% include "lfw/jobappview.html" %}
+			</div>
+		</div>
 
-<p>“Time, which sees all things, has found you out.”</p>
-{% include "lfw/pipeline.html" %}
+			<p> “I am not omniscient, but I know a lot.” </p>
+			{%include "lfw/canvas.html" %}
+
+			<p>“Time, which sees all things, has found you out.”</p>
+			{%include "lfw/display_elapsed.html" %}
+
+
+			<div class= "pipeline">{% include "lfw/pipeline.html" %}</div>
+	</div>
 {% endblock %}

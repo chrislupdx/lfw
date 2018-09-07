@@ -1,5 +1,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
-<canvas id="myChart" width="400" height="400"></canvas>
+<div class="canvas-container">
+    <canvas id="myChart"></canvas>
+</div>
 <script>
 
 let jobappData = null
@@ -10,12 +12,12 @@ fetch('http://localhost:8000/canvas_json/')
   })
   .then(function(myJson) {
     // console.log(JSON.stringify(myJson));
-    displayChart(myJson)
+    displayBarChart(myJson)
   });
 
 //I'm not 100% sure where I should be pulling things from and seeing where things go
 
-function displayChart(jobData) {
+function displayBarChart(jobData) {
     console.log(JSON.parse(jobData))
     jobData = JSON.parse(jobData)
     let labels = ['PS', 'RO', 'QD', 'SN']

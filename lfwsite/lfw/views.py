@@ -18,14 +18,13 @@ def display_elapsed(request):
 	return render(request,'lfw/display_elapsed.html', status_context())
 
 def elapsed_json(request):
-	data = []
 	first_group = [app for app in Jobapp.objects.all() if 0 <= app.time_elapsed.days < 5]
 	second_group = [app for app in Jobapp.objects.all() if 5 < app.time_elapsed.days < 10]
 	third_group = [app for app in Jobapp.objects.all() if 10 < app.time_elapsed.days < 15]
 	fourth_group = [app for app in Jobapp.objects.all() if 15 < app.time_elapsed.days < 20]
 	fifth_group = [app for app in Jobapp.objects.all() if 20 < app.time_elapsed.days < 25]
 	sixth_group = [app for app in Jobapp.objects.all() if 25 < app.time_elapsed.days < 30]
-	print(first_group)
+	data = [len(first_group), len(second_group), len(third_group), len(fourth_group), len(fifth_group), len(sixth_group)]
 	return JsonResponse(data, safe=False)
 
 def canvas_json(request):

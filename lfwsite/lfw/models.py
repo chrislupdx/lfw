@@ -110,7 +110,7 @@ class Jobapp(models.Model):
 	date_rolecreated = models.DateTimeField(blank=True, null=True)
 	date_due = models.DateTimeField(blank=True, null=True)
 	date_applied = models.DateTimeField(blank=True, null=True)
-	date_created = models.DateTimeField(blank=True, null=True)
+	date_created = models.DateTimeField(default=datetime.now())
 
 
 	JOBAPP_STATS_CHOICES = (
