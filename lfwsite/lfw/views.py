@@ -92,3 +92,8 @@ def status_context():
 		'screening' : screening,
 	}
 	return context	
+
+# @login_required
+# def index_view(request):
+#    p = Model.objects.filter(user=request.user)
+#    return render(request, 'app/index.html', {'objects': p})

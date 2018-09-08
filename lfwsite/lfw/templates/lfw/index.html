@@ -3,18 +3,21 @@
 {% block content %}
 	<div class="container dashboard">
 		<h3>We Get What We Deserve</h3>
+
+		<div class="container">
 		<div class="row">
-			<div class="col s9">
-			{% include "lfw/jobappview.html" %}
+			<div class="col s5">
+			{%include "lfw/canvas.html" %}
+			</div>
+		
+			<div class="col s7">
+			{%include "lfw/display_elapsed.html" %}
 			</div>
 		</div>
-
-			<p> “I am not omniscient, but I know a lot.” </p>
-			{%include "lfw/canvas.html" %}
-
-			<p>“Time, which sees all things, has found you out.”</p>
-			{%include "lfw/display_elapsed.html" %}
-
+		<div class="row">
+			<div class = "col s5">
+			{% include "lfw/jobappview.html" %}
+			</div>
 
 			<div class= "pipeline">{% include "lfw/pipeline.html" %}</div>
 	</div>
