@@ -3,40 +3,45 @@ from django.http import HttpResponse, HttpResponseRedirect, HttpRequest, JsonRes
 from django.shortcuts import render, redirect, get_object_or_404, reverse
 from .models import Jobapp, Resume, Coverletter
 from .forms import Jobappform, Resumeform, Clform
+from django.contrib.auth.decorators import permission_required, user_passes_test
+from django.contrib.auth.models import User
 
 def index(request):
 	return render(request,'lfw/index.html', status_context())
 
 def display_jobappview(request):
-	jobapps = Jobapp.objects.all()
+	jobapps = Jobapp.objects.filter(user=request.user)
 	fields = [f.name for f in Jobapp._meta.get_fields()]
 	print(fields)
-	return render(request,'lfw/jobappview.html', {'jobapps': jobapps, 'fields':fields})
+	return render(request,'lfw/jobappview.html', {'user': User, 'jobapps': jobapps, 'fields':fields})
 
 def display_elapsed(request):
-	pipeline_individual_count = Jobapp.objects.all()
+	pipeline_individual_count = Jobapp.objects.filter(user=request.user)
 	return render(request,'lfw/display_elapsed.html', status_context())
 
 def elapsed_json(request):
-	first_group = [app for app in Jobapp.objects.all() if 0 <= app.time_elapsed.days < 5]
-	second_group = [app for app in Jobapp.objects.all() if 5 < app.time_elapsed.days < 10]
-	third_group = [app for app in Jobapp.objects.all() if 10 < app.time_elapsed.days < 15]
-	fourth_group = [app for app in Jobapp.objects.all() if 15 < app.time_elapsed.days < 20]
-	fifth_group = [app for app in Jobapp.objects.all() if 20 < app.time_elapsed.days < 25]
-	sixth_group = [app for app in Jobapp.objects.all() if 25 < app.time_elapsed.days < 30]
+	first_group = [app for app in Jobapp.objects.filter(user=request.user) if 0 <= app.time_elapsed.days < 5]
+	second_group = [app for app in Jobapp.objects.filter(user=request.user) if 5 < app.time_elapsed.days < 10]
+	third_group = [app for app in Jobapp.objects.filter(user=request.user) if 10 < app.time_elapsed.days < 15]
+	fourth_group = [app for app in Jobapp.objects.filter(user=request.user) if 15 < app.time_elapsed.days < 20]
+	fifth_group = [app for app in Jobapp.objects.filter(user=request.user) if 20 < app.time_elapsed.days < 25]
+	sixth_group = [app for app in Jobapp.objects.filter(user=request.user) if 25 < app.time_elapsed.days < 30]
 	data = [len(first_group), len(second_group), len(third_group), len(fourth_group), len(fifth_group), len(sixth_group)]
 	return JsonResponse(data, safe=False)
 
 def canvas_json(request):
-	jobapps = serializers.serialize("json", Jobapp.objects.all(), fields=('pipeline_status'))
+	jobapps = serializers.serialize("json", Jobapp.objects.filter(user=request.user), fields=('pipeline_status'))
 	return JsonResponse(jobapps, safe=False) #this return could be redundant, who knows
 
 def display_canvas(request):
-	pipeline_individual_count = Jobapp.objects.all()
+	pipeline_individual_count = Jobapp.objects.filter(user=request.user)
 	return render(request,'lfw/canvas.html', status_context())
 
 def display_pipeline(request):
 	return render(request,'lfw/pipeline.html', status_context())
+
+def all_forms(request):
+	return render(request,'lfw/all_forms.html', context)
 
 def add_entry(request):
 	if request.method == 'POST':

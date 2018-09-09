@@ -6,6 +6,7 @@ class Company(models.Model):
 	name = models.CharField(max_length=25)
 	description = models.TextField(null=True, blank=True)
 	IPO = models.BooleanField()
+	user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 	Solo = range(0, 6)
 	Tiny = range(6,26)
@@ -34,6 +35,7 @@ class Company(models.Model):
 
 	def startup_sized(self):
 		return self.app_contact_status in (self.TINY, self.LITTLE, self.SMALL, self.SMALLISH, self.MEDIUM)
+
 
 class Contact(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
