@@ -31,6 +31,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'material',
+    'material.frontend',
     'lfw.apps.LfwConfig',
     'django.contrib.admin',
     'django.contrib.auth',  #Core authentication framework and its default models.

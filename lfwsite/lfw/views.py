@@ -3,9 +3,10 @@ from django.http import HttpResponse, HttpResponseRedirect, HttpRequest, JsonRes
 from django.shortcuts import render, redirect, get_object_or_404, reverse
 from .models import Jobapp, Resume, Coverletter
 from .forms import Jobappform, Resumeform, Clform
-from django.contrib.auth.decorators import permission_required, user_passes_test
+from django.contrib.auth.decorators import permission_required, login_required
 from django import forms
 
+@login_required()
 def index(request):
 	return render(request,'lfw/index.html', status_context(request))
 
@@ -95,8 +96,7 @@ def add_res(request):
 			return redirect(reverse('lfw:index'))
 	form = Resumeform()
 	context = {'form': form}
-	return render(request, 'lfw/Res_form.html', context)
-
+	return render(request, 'lfw/Res_form.html', context)	
 #is this a context that's getting passed bewteen the front to middle or middle to back?
 
 def add_cl(request):
