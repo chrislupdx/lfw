@@ -4,20 +4,20 @@ from django.shortcuts import render, redirect, get_object_or_404, reverse
 from .models import Jobapp, Resume, Coverletter
 from .forms import Jobappform, Resumeform, Clform
 from django.contrib.auth.decorators import permission_required, user_passes_test
-from django.contrib.auth.models import User
+from django import forms
 
 def index(request):
-	return render(request,'lfw/index.html', status_context())
+	return render(request,'lfw/index.html', status_context(request))
 
 def display_jobappview(request):
 	jobapps = Jobapp.objects.filter(user=request.user)
 	fields = [f.name for f in Jobapp._meta.get_fields()]
 	print(fields)
-	return render(request,'lfw/jobappview.html', {'user': User, 'jobapps': jobapps, 'fields':fields})
+	return render(request,'lfw/jobappview.html', {'jobapps': jobapps, 'fields':fields})
 
 def display_elapsed(request):
 	pipeline_individual_count = Jobapp.objects.filter(user=request.user)
-	return render(request,'lfw/display_elapsed.html', status_context())
+	return render(request,'lfw/display_elapsed.html', status_context(request))
 
 def elapsed_json(request):
 	first_group = [app for app in Jobapp.objects.filter(user=request.user) if 0 <= app.time_elapsed.days < 5]
@@ -35,13 +35,42 @@ def canvas_json(request):
 
 def display_canvas(request):
 	pipeline_individual_count = Jobapp.objects.filter(user=request.user)
-	return render(request,'lfw/canvas.html', status_context())
+	return render(request,'lfw/canvas.html', status_context(request))
 
 def display_pipeline(request):
-	return render(request,'lfw/pipeline.html', status_context())
+	return render(request,'lfw/pipeline.html', status_context(request))
 
 def all_forms(request):
-	return render(request,'lfw/all_forms.html', context)
+	context = {}
+	if request.method == 'POST':
+		entry_form = Jobappform(request.POST)
+		if entry_form.is_valid():
+			jobapp = entry_form.save(commit=False)
+			jobapp.user = request.user 
+			jobapp.save()
+	entry_form = Jobappform()
+	context['add_entry_form'] = entry_form
+
+	if request.method == 'POST':
+		res_form = Resumeform(request.POST)
+		if res_form.is_valid():
+			resume = res_form.save(commit=False)
+			resume.user = request.user
+			resume.save()
+	res_form = Resumeform()
+	context['resume_form'] = res_form
+
+	if request.method == 'POST':
+		cl_form = Clform(request.POST)
+		if cl_form.is_valid():
+			cl = form.save(commit=False)
+			cl.user = request.user
+			cl.save()
+	cl_form = Clform()
+	context['coverletter_form'] = cl_form
+
+	return render(request, 'lfw/all_forms.html', context)
+
 
 def add_entry(request):
 	if request.method == 'POST':
@@ -83,12 +112,12 @@ def add_cl(request):
 	return render(request, 'lfw/cl_form.html', context)
 #is this a context that's getting passed bewteen the front to middle or middle to back?
 
-def status_context():
-	jobapps = Jobapp.objects.all()
-	prospects = Jobapp.objects.filter(pipeline_status='PS')
-	reachedout = Jobapp.objects.filter(pipeline_status='RO')
-	qualified = Jobapp.objects.filter(pipeline_status='QD')
-	screening = Jobapp.objects.filter(pipeline_status='SN')
+def status_context(request):
+	jobapps = Jobapp.objects.filter(user=request.user)
+	prospects = jobapps.filter(pipeline_status='PS')
+	reachedout = jobapps.filter(pipeline_status='RO')
+	qualified = jobapps.filter(pipeline_status='QD')
+	screening = jobapps.filter(pipeline_status='SN')
 	context = {
 		'jobapps': jobapps,
 		'prospects' : prospects,
