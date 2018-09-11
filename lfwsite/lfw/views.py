@@ -76,7 +76,7 @@ def display_pipeline(request):
 
 def add_entry(request):
 	if request.method == 'POST':
-		# form = Jobappform()
+		form = Jobappform(request.user)
 		app = Jobapp()
 		for k, v in request.POST.items():
 			print('label: {}'.format(k))
@@ -84,14 +84,20 @@ def add_entry(request):
 		app.name = request.POST.get('name')
 		app.user = request.user
 		app.company = request.POST.get('company')
+		app.description = request.POST.get('description')
+		app.url = request. POST.get('url')
+		app.date_rolecreated = request.POST.get('date_rolecreated')
+		app.resume = Resume.objects.get(pk=request.POST.get('resume'))
+		app.coverletter = Coverletter.objects.get(pk=request.POST.get('coverletter'))
 		app.save()
 		# if form.is_valid():
-		# 	print('addentry is valid')
+		# 	print('addentry is valdi')
 		# 	jobapp = form.save(commit=False)
-		# 	jobapp.user = request.user 
+		# 	jobapp.exuser = request.user 
 		# 	jobapp.save()
 		return redirect(reverse('lfw:index'))
-	form = Jobappform()
+	form = Jobappform(request.user)
+	print(form)
 	context = {'form': form}
 	return render(request, 'lfw/jobappform.html', context)
 

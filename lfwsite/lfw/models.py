@@ -6,8 +6,6 @@ class Company(models.Model):
 	name = models.CharField(max_length=25)
 	description = models.TextField(null=True, blank=True)
 	IPO = models.BooleanField()
-	user = models.ForeignKey(User, on_delete=models.CASCADE)
-
 	Solo = range(0, 6)
 	Tiny = range(6,26)
 	Little = range(26,51)
@@ -86,9 +84,11 @@ class Contact(models.Model):
 class Resume(models.Model):
 	name = models.CharField(max_length=50, blank=True, null=True)
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
-	url = models.URLField(null=True, blank=True)
+	url = models.URLField()
 	date_created = models.DateTimeField(blank=True, null=True)
 
+	def __str__(self):
+		return str(self.name)
 
 class Coverletter(models.Model):
 	name = models.CharField(max_length=50, blank=True, null=True)
@@ -131,4 +131,4 @@ class Jobapp(models.Model):
 	def time_elapsed(self):
 		now = datetime.now(timezone.utc)
 		elapsed = now - self.date_created
-		return elapsed
+		return elapsed	
