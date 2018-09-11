@@ -1,5 +1,7 @@
+{% extends 'lfw/base.html' %}
 {% load material_form %}
 
+{% block content%}
 <p>Submit Resume! </p>
 
 
@@ -8,3 +10,4 @@
     {% form form=form %}{% endform %}
 	<button type="submit">Submit Resume </button>
 </form>
+{% endblock%}

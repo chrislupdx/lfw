@@ -1,10 +1,13 @@
-  {% load material_form %}
+{% extends 'lfw/base.html' %}
+{% load material_form %}
 
+{% block content %}
 <p>Submit Cover Letter! </p>
-
 
 <form action="{% url 'lfw:add_cl'%}" method="post">
 	{% csrf_token %}
     {% form form=form %}{% endform %}
 	<button type="submit">Submit Cover Letter </button>
 </form>
+
+{% endblock %}

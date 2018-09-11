@@ -29,9 +29,12 @@ class Jobappform(ModelForm):
         # the model to associate with the form
         model = Jobapp
         # a list of all the models' fields you want in the form
-        exclude = ['resume', 'coverletter', 'user', 'followup_touches', 'first_contacted', 'last_contacted', 'date_due', 'date_applied','date_created']
+        exclude = ['user', 'followup_touches', 'first_contacted', 'last_contacted', 'date_due', 'date_applied','date_created', 'coverletter', 'resume']
     layout = Layout(
-        Row('company', 'contact'))
+        Row('name'),
+        Row('company', 'contact', 'referred_by'),
+        Row('description', 'url'),
+        Row('date_rolecreated'))   
 
 class Resumeform(ModelForm):
     class Meta:

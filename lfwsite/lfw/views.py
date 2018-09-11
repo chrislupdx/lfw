@@ -41,46 +41,56 @@ def display_canvas(request):
 def display_pipeline(request):
 	return render(request,'lfw/pipeline.html', status_context(request))
 
-def all_forms(request):
-	context = {}
-	if request.method == 'POST':
-		entry_form = Jobappform(request.POST)
-		if entry_form.is_valid():
-			jobapp = entry_form.save(commit=False)
-			jobapp.user = request.user 
-			jobapp.save()
-	entry_form = Jobappform()
-	context['add_entry_form'] = entry_form
+# def all_forms(request):
+# 	context = {}
 
-	if request.method == 'POST':
-		res_form = Resumeform(request.POST)
-		if res_form.is_valid():
-			resume = res_form.save(commit=False)
-			resume.user = request.user
-			resume.save()
-	res_form = Resumeform()
-	context['resume_form'] = res_form
+# 	if request.method == 'POST':
+# 		entry_form = Jobappform(request.POST)
+# 		if entry_form.is_valid():
+# 			jobapp = entry_form.save(commit=False)
+# 			jobapp.user = request.user 
+# 			jobapp.save()
+# 	entry_form = Jobappform()
+# 	context['add_entry_form'] = entry_form
 
-	if request.method == 'POST':
-		cl_form = Clform(request.POST)
-		if cl_form.is_valid():
-			cl = form.save(commit=False)
-			cl.user = request.user
-			cl.save()
-	cl_form = Clform()
-	context['coverletter_form'] = cl_form
+# 	if request.method == 'POST':
+# 		res_form = Resumeform(request.POST)
+# 		if res_form.is_valid():
+# 			resume = res_form.save(commit=False)
+# 			resume.user = request.user
+# 			resume.save()
+# 	res_form = Resumeform()
+# 	context['resume_form'] = res_form
 
-	return render(request, 'lfw/all_forms.html', context)
+# 	if request.method == 'POST':
+# 		cl_form = Clform(request.POST)
+# 		if cl_form.is_valid():
+# 			cl = form.save(commit=False)
+# 			cl.user = request.user
+# 			cl.save()
+# 	cl_form = Clform()
+# 	context['coverletter_form'] = cl_form
+
+# 	return render(request, 'lfw/all_forms.html', context)
 
 
 def add_entry(request):
 	if request.method == 'POST':
-		form = Jobappform(request.POST)
-		if form.is_valid():
-			jobapp = form.save(commit=False)
-			jobapp.user = request.user 
-			jobapp.save()
-			return redirect(reverse('lfw:index'))
+		# form = Jobappform()
+		app = Jobapp()
+		for k, v in request.POST.items():
+			print('label: {}'.format(k))
+			print('value`: {}'.format(v))
+		app.name = request.POST.get('name')
+		app.user = request.user
+		app.company = request.POST.get('company')
+		app.save()
+		# if form.is_valid():
+		# 	print('addentry is valid')
+		# 	jobapp = form.save(commit=False)
+		# 	jobapp.user = request.user 
+		# 	jobapp.save()
+		return redirect(reverse('lfw:index'))
 	form = Jobappform()
 	context = {'form': form}
 	return render(request, 'lfw/jobappform.html', context)
@@ -92,7 +102,6 @@ def add_res(request):
 			resume = form.save(commit=False)
 			resume.user = request.user
 			resume.save()
-			
 			return redirect(reverse('lfw:index'))
 	form = Resumeform()
 	context = {'form': form}
