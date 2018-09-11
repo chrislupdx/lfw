@@ -1,9 +1,13 @@
+{% extends "lfw/base.html" %}
 {% load material_form %}
 {% include 'material/includes/material_css.html' %}
 {% include 'material/includes/material_js.html' %}
 
+{% block content %}
+	
 <form action="{% url 'lfw:add_entry'%}" method="post">
 	{% csrf_token %}
     {% form form=form %}{% endform %}
 	<button type="submit">NO TRUTHEXISTS! </button>
 </form>
+{% endblock content %}

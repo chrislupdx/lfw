@@ -22,15 +22,18 @@ class Jobappform(forms.Form):
     date_applied = forms.DateTimeField(required= False)
     date_created = forms.DateTimeField(required= False)
 
-
     def __init__(self, user, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.user = user
         self.fields['contact'].choices = [(choice.pk, choice) for choice in Contact.objects.filter(user=user)]
         self.fields['coverletter'].choices = [(choice.pk, choice) for choice in Coverletter.objects.filter(user=user)]
         self.fields['resume'].choices = [(choice.pk, choice) for choice in Resume.objects.filter(user=user)]
+    layout = Layout('name', 'company', 'description',
+                Row('contact', 'coverletter', 'resume'),
+                Row('followup_touches', 'first_contacted', 'last_contacted'),
+                Row('date_foundbyuser', 'date_due', 'date_applied', 'date_created'))
 
-        
+
 # class Jobappform(ModelForm):
 #     class Meta:
 #         # the model to associate with the form
