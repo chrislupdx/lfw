@@ -16,6 +16,7 @@ urlpatterns = [
 	path('canvas_json/', views.canvas_json, name='canvas_json'),
 	path('elapsed_json/', views.elapsed_json, name='elapsed_json'),
 	path('display_elapsed/', views.display_elapsed, name='display_elapsed'),
+	path('buildframe/', views.buildframe, name='buildframe')
 	
 ]
 

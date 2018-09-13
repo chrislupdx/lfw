@@ -49,38 +49,6 @@ def display_canvas(request):
 def display_pipeline(request):
 	return render(request,'lfw/pipeline.html', status_context(request))
 
-# def all_forms(request):
-# 	context = {}
-
-# 	if request.method == 'POST':
-# 		entry_form = Jobappform(request.POST)
-# 		if entry_form.is_valid():
-# 			jobapp = entry_form.save(commit=False)
-# 			jobapp.user = request.user 
-# 			jobapp.save()
-# 	entry_form = Jobappform()
-# 	context['add_entry_form'] = entry_form
-
-# 	if request.method == 'POST':
-# 		res_form = Resumeform(request.POST)
-# 		if res_form.is_valid():
-# 			resume = res_form.save(commit=False)
-# 			resume.user = request.user
-# 			resume.save()
-# 	res_form = Resumeform()
-# 	context['resume_form'] = res_form
-
-# 	if request.method == 'POST':
-# 		cl_form = Clform(request.POST)
-# 		if cl_form.is_valid():
-# 			cl = form.save(commit=False)
-# 			cl.user = request.user
-# 			cl.save()
-# 	cl_form = Clform()
-# 	context['coverletter_form'] = cl_form
-
-# 	return render(request, 'lfw/all_forms.html', context)
-
 def add_entry(request):
 	if request.method == 'POST':
 		form = Jobappform(request.user)
@@ -134,6 +102,11 @@ def add_cl(request):
 	return render(request, 'lfw/cl_form.html', context)
 #is this a context that's getting passed bewteen the front to middle or middle to back?
 
+def buildframe(request):
+	jobapps = Jobapp.objects.filter(user=request.user)
+	return render(request, 'lfw/buildframe.html', status_context(request))
+
+
 def status_context(request):
 	jobapps = Jobapp.objects.filter(user=request.user)
 	prospects = jobapps.filter(pipeline_status='PS')
@@ -149,7 +122,40 @@ def status_context(request):
 	}
 	return context	
 
+
 # @login_required
 # def index_view(request):
 #    p = Model.objects.filter(user=request.user)
 #    return render(request, 'app/index.html', {'objects': p})
+
+# def all_forms(request):
+# 	context = {}
+
+# 	if request.method == 'POST':
+# 		entry_form = Jobappform(request.POST)
+# 		if entry_form.is_valid():
+# 			jobapp = entry_form.save(commit=False)
+# 			jobapp.user = request.user 
+# 			jobapp.save()
+# 	entry_form = Jobappform()
+# 	context['add_entry_form'] = entry_form
+
+# 	if request.method == 'POST':
+# 		res_form = Resumeform(request.POST)
+# 		if res_form.is_valid():
+# 			resume = res_form.save(commit=False)
+# 			resume.user = request.user
+# 			resume.save()
+# 	res_form = Resumeform()
+# 	context['resume_form'] = res_form
+
+# 	if request.method == 'POST':
+# 		cl_form = Clform(request.POST)
+# 		if cl_form.is_valid():
+# 			cl = form.save(commit=False)
+# 			cl.user = request.user
+# 			cl.save()
+# 	cl_form = Clform()
+# 	context['coverletter_form'] = cl_form
+
+# 	return render(request, 'lfw/all_forms.html', context)

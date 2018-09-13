@@ -3,6 +3,15 @@
   <canvas id="lagging"></canvas>
 </div>  
 <script>
+  var timeFormat = 'MM/DD/YYYY HH:mm';
+
+  function newDate(days) {
+      return moment().add(days, 'd').toDate();
+    }
+    function newDateString(days) {
+      return moment().add(days, 'd').format(timeFormat);
+    }
+
 
 fetch('http://localhost:8000/elapsed_json/')
   .then(function(response) {
@@ -19,8 +28,7 @@ fetch('http://localhost:8000/elapsed_json/')
 
 function displayLaggingChart(jobData) {
   var laggingData = {
-    xLabels: ['January','2'],
-    yLabels: ['Arson', 'murder'],
+    labels: ['ja1', 'ja2'],
     datasets: [{
       data: [jobData],
     }
@@ -40,12 +48,8 @@ function displayLaggingChart(jobData) {
         time: {
           displayFormats:{ day: 'MMM D'},
         }
-      }],
-      yAxes: [{
-        type: 'category',
-        position: 'left',
-        display: true,
       }]
+  
     }
   };
 
