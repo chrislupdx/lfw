@@ -84,16 +84,18 @@ class Contact(models.Model):
 class Resume(models.Model):
 	name = models.CharField(max_length=50, blank=True, null=True)
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
-	url = models.URLField()
+	url = models.URLField(null=True, blank=True)
 	date_created = models.DateTimeField(blank=True, null=True)
 
 	def __str__(self):
 		return str(self.name)
 
 class Coverletter(models.Model):
+	
 	name = models.CharField(max_length=50, blank=True, null=True)
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	url = models.URLField(null=True, blank=True)
+
 
 class Jobapp(models.Model):
 	name = models.CharField(max_length=50)
@@ -132,3 +134,12 @@ class Jobapp(models.Model):
 		now = datetime.now(timezone.utc)
 		elapsed = now - self.date_created
 		return elapsed	
+	
+class Skill(models.Model):
+	user = models.ForeignKey(User, on_delete=models.CASCADE)
+	name = models.CharField(max_length=50)
+	copy = models.TextField()
+	coverletter = models.ManyToManyField(Coverletter, blank=True, related_name='skills')
+
+	def __str__(self):
+		return str(self.name)

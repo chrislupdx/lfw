@@ -1,0 +1,23 @@
+{% extends 'lfw/base.html' %}
+{% load static %}
+{% block title %}Builder{% endblock %}
+
+{% block content %}
+
+<html>
+ <head>
+     <title>Title of the document</title>
+ </head>
+
+ <body>
+	<div>
+		<iframe src="https://principiadiscordia.com/" frameborder="0" allowfullscreen  width=" 45%" height="400" style="box-shadow: 0 0 16px gray; margin: 10px;" name="joblisting" id="test"></iframe>
+	</div>
+
+{% include "lfw/skills_list.html" with skills=skills %}
+
+{% include "lfw/skills_input.html" with form=form %}
+
+ </body>
+</html>
+{% endblock %}

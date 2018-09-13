@@ -3,7 +3,7 @@ from django import forms
 from django.template import Template
 from material import Layout, Row, Column, Fieldset, Span2, Span3, Span5, Span6, Span10
 from django.forms import ModelForm
-from .models import Jobapp, Resume, Coverletter, Contact
+from .models import Jobapp, Resume, Coverletter, Contact, Skill
 
 class Jobappform(forms.Form):
     name = forms.CharField(max_length=50)
@@ -62,3 +62,8 @@ class Clform(ModelForm):
     class Meta:
         model = Coverletter
         fields = ('url', 'name',)
+
+class Skills_input(ModelForm):
+    class Meta:
+        model = Skill
+        fields = ('name', 'copy',)

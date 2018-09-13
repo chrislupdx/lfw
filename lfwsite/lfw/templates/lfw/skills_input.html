@@ -1,0 +1,11 @@
+{% load material_form %}
+{% block content%}
+
+
+<form action="{% url 'lfw:skills_input'%}" method="post">
+	{% csrf_token %}
+    {% form form=form %}{% endform %}
+	<button type="submit">Add Skill </button>
+</form>
+
+{% endblock %}

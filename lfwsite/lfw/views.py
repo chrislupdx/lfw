@@ -1,8 +1,8 @@
 from django.core import serializers
 from django.http import HttpResponse, HttpResponseRedirect, HttpRequest, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404, reverse
-from .models import Jobapp, Resume, Coverletter
-from .forms import Jobappform, Resumeform, Clform
+from .models import Jobapp, Resume, Coverletter, Skill
+from .forms import Jobappform, Resumeform, Clform, Skills_input
 from django.contrib.auth.decorators import permission_required, login_required
 from django import forms
 
@@ -102,10 +102,26 @@ def add_cl(request):
 	return render(request, 'lfw/cl_form.html', context)
 #is this a context that's getting passed bewteen the front to middle or middle to back?
 
-def buildframe(request):
-	jobapps = Jobapp.objects.filter(user=request.user)
-	return render(request, 'lfw/buildframe.html', status_context(request))
+def clbuilder(request):
+	if request.method == 'POST':
+		form = Skills_input(request.POST)
+		if form.is_valid():
+			cl = form.save(commit=False)
+			cl.user = request.user
+			cl.save()
+			return redirect(reverse('lfw:clbuilder'))
+	form = Skills_input()
 
+	jobapps = Jobapp.objects.filter(user=request.user)
+	skills = Skill.objects.filter(user=request.user)
+
+	context = {
+	'skills':skills,
+	'jobapps':jobapps,
+	'form': form,
+	
+	}
+	return render(request, 'lfw/clbuilder.html', context)
 
 def status_context(request):
 	jobapps = Jobapp.objects.filter(user=request.user)

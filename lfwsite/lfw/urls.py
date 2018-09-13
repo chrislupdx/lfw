@@ -16,8 +16,10 @@ urlpatterns = [
 	path('canvas_json/', views.canvas_json, name='canvas_json'),
 	path('elapsed_json/', views.elapsed_json, name='elapsed_json'),
 	path('display_elapsed/', views.display_elapsed, name='display_elapsed'),
-	path('buildframe/', views.buildframe, name='buildframe')
-	
+	path('clbuilder/', views.clbuilder, name='clbuilder'),
+	path('skills_list/', views.clbuilder, name='skills_list'),
+	path('skills_input/', views.clbuilder, name='skills_input'),
+
 ]
 
 #Add Django site authentication urls (for login, logout, password management)
