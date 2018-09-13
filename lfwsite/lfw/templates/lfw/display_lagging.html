@@ -1,0 +1,59 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
+<div class="elapsed_container">
+  <canvas id="lagging"></canvas>
+</div>  
+<script>
+
+fetch('http://localhost:8000/elapsed_json/')
+  .then(function(response) {
+    return response.json()
+  })
+  .catch(errors => {
+    console.log(errors)
+  })
+  .then(function(myJson) {
+    // console.log(JSON.stringify(myJson));
+    displayLaggingChart(myJson)
+  });
+// the last display chart hasn't gone into this yet
+
+function displayLaggingChart(jobData) {
+  var laggingData = {
+    xLabels: ['January','2'],
+    yLabels: ['Arson', 'murder'],
+    datasets: [{
+      data: [jobData],
+    }
+]  };
+
+  var options = {
+    responsive: true,
+    title:{
+      display: true,
+      text: "titletext"
+    },
+
+    scales: {
+      xAxes: [{
+        type: 'time',
+        display: true,
+        time: {
+          displayFormats:{ day: 'MMM D'},
+        }
+      }],
+      yAxes: [{
+        type: 'category',
+        position: 'left',
+        display: true,
+      }]
+    }
+  };
+
+  var ctx = document.getElementById("lagging");
+  var lagging = new Chart(ctx, {
+      type: 'horizontalBar',
+      data: laggingData,
+      options: options
+  });
+}
+</script>

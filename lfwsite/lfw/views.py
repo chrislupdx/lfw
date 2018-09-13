@@ -20,6 +20,14 @@ def display_elapsed(request):
 	pipeline_individual_count = Jobapp.objects.filter(user=request.user)
 	return render(request,'lfw/display_elapsed.html', status_context(request))
 
+def display_lagging(request):
+	pipeline_individual_count = Jobapp.objects.filter(user=request.user)
+	return render(request,'lfw/display_lagging.html', status_context(request))
+
+def lagging_json(request):
+	jobapps = serializers.serialize("json", Jobapp.objects.filter(user=request.user, pipeline_status='PS'))
+	return JsonResponse(jobapps, safe=False) #this return could be redundant, who knows
+
 def elapsed_json(request):
 	first_group = [app for app in Jobapp.objects.filter(user=request.user) if 0 <= app.time_elapsed.days < 5]
 	second_group = [app for app in Jobapp.objects.filter(user=request.user) if 5 < app.time_elapsed.days < 10]
@@ -72,7 +80,6 @@ def display_pipeline(request):
 # 	context['coverletter_form'] = cl_form
 
 # 	return render(request, 'lfw/all_forms.html', context)
-
 
 def add_entry(request):
 	if request.method == 'POST':

@@ -9,10 +9,10 @@ class Jobappform(forms.Form):
     name = forms.CharField(max_length=50)
     description = forms.CharField(required= False)
     company = forms.CharField(max_length=50, required= False)
-    contact = forms.ChoiceField(choices=[], required=False)
+    contact = forms.ModelChoiceField(queryset=None, required=False)
 
-    coverletter = forms.ChoiceField(choices=[], required=False) 
-    resume = forms.ChoiceField(choices=[], required=False) 
+    coverletter = forms.ModelChoiceField(queryset=None, required=False) 
+    resume = forms.ModelChoiceField(queryset=None, required=False) 
 
     followup_touches = forms.IntegerField(required= False)
     first_contacted = forms.DateTimeField(required= False)
@@ -25,9 +25,10 @@ class Jobappform(forms.Form):
     def __init__(self, user, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.user = user
-        self.fields['contact'].choices = [(choice.pk, choice) for choice in Contact.objects.filter(user=user)]
-        self.fields['coverletter'].choices = [(choice.pk, choice) for choice in Coverletter.objects.filter(user=user)]
-        self.fields['resume'].choices = [(choice.pk, choice) for choice in Resume.objects.filter(user=user)]
+        self.fields['contact'].queryset = Contact.objects.filter(user=user)
+        self.fields['coverletter'].queryset = Coverletter.objects.filter(user=user)
+        self.fields['resume'].queryset = Resume.objects.filter(user=user)
+    
     layout = Layout('name', 'company', 'description',
                 Row('contact', 'coverletter', 'resume'),
                 Row('followup_touches', 'first_contacted', 'last_contacted'),
