@@ -10,14 +10,16 @@
  </head>
 
  <body>
-	<div>
-		<iframe src="https://principiadiscordia.com/" frameborder="0" allowfullscreen  width=" 45%" height="400" style="box-shadow: 0 0 16px gray; margin: 10px;" name="joblisting" id="test"></iframe>
-	</div>
 
 {% include "lfw/skills_list.html" with skills=skills %}
 
 {% include "lfw/skills_input.html" with form=form %}
 
+{% include "lfw/cl_loader.html" with jobapps=jobapps %}
+
  </body>
 </html>
 {% endblock %}
+{% block scripts %}
+	<script src="{% static 'lfw/scripts/cl_loader.js' %}"></script>	
+{% endblock scripts %}

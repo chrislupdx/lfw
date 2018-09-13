@@ -1,0 +1,11 @@
+	<select id="dropdownselector">
+   <option value="none">Dropdown</option>
+   {% for x in jobapps %}
+    <option value="{{ x.url }}">{{ x.name }}</option>
+   {% endfor %}
+
+{# if jobapp has url, show it's url #}
+
+	<div>
+		<iframe src="https://principiadiscordia.com/" frameborder="0" allowfullscreen  width=" 45%" height="400" style="box-shadow: 0 0 16px gray; margin: 10px;" name="joblisting" id="test"></iframe>
+	</div>

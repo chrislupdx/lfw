@@ -95,7 +95,7 @@ class Coverletter(models.Model):
 	name = models.CharField(max_length=50, blank=True, null=True)
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	url = models.URLField(null=True, blank=True)
-
+	clcopy = models.TextField()
 
 class Jobapp(models.Model):
 	name = models.CharField(max_length=50)
