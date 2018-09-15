@@ -1,0 +1,29 @@
+.wrapper {
+  display: grid;
+  grid-template-columns: 200px 200px 200px;
+}
+
+.dashboard {
+	
+	padding: 10%;
+}
+
+.pipeline {
+
+	padding: 5px 5px 5px 5px;
+
+}
+
+#myChart {
+	padding: 20px 20px 20px 20px;
+}
+
+.responsive-table {
+
+	padding: -45px 400px 1px 1px;
+
+}
+
+#elapsed {
+	padding-right: 20px;
+}
