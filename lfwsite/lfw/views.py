@@ -138,6 +138,9 @@ def status_context(request):
 	}
 	return context	
 
+def jobapp_loader(request):
+	jobapps = serializers.serialize("json", Jobapp.objects.filter(user=request.user))
+	return JsonResponse(jobapps, safe=False)
 
 # @login_required
 # def index_view(request):

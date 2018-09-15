@@ -19,6 +19,7 @@ urlpatterns = [
 	path('clbuilder/', views.clbuilder, name='clbuilder'),
 	path('skills_list/', views.clbuilder, name='skills_list'),
 	path('skills_input/', views.clbuilder, name='skills_input'),
+	path('jobapp_loader/', views.jobapp_loader, name='jobapp_loader')
 
 ]
 

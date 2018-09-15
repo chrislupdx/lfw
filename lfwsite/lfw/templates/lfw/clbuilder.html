@@ -1,7 +1,9 @@
 {% extends 'lfw/base.html' %}
 {% load static %}
 {% block title %}Builder{% endblock %}
-
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="{% static 'lfw/cl_loader.css' %}">
+{% endblock styles %}
 {% block content %}
 
 <html>
@@ -17,8 +19,6 @@
 
 {% include "lfw/cl_loader.html" with jobapps=jobapps %}
 
- </body>
-</html>
 {% endblock %}
 {% block scripts %}
 	<script src="{% static 'lfw/scripts/cl_loader.js' %}"></script>	
