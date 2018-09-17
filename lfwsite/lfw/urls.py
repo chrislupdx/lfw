@@ -21,7 +21,7 @@ urlpatterns = [
 	path('skills_input/', views.clbuilder, name='skills_input'),
 	path('jobapp_loader/', views.jobapp_loader, name='jobapp_loader'),
 	path('cltodo/', views.clbuilder, name='cltodo'),
-	path('cltexteditor/', views.clbuilder, name='cltexteditor')
+	path('cltexteditor/', views.cltexteditor, name='cltexteditor')
 
 ]
 

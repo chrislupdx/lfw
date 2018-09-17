@@ -2,7 +2,7 @@ from django.core import serializers
 from django.http import HttpResponse, HttpResponseRedirect, HttpRequest, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404, reverse
 from .models import Jobapp, Resume, Coverletter, Skill
-from .forms import Jobappform, Resumeform, Clform, Skills_input
+from .forms import Jobappform, Resumeform, Clform, Skills_input, Cltexteditor
 from django.contrib.auth.decorators import permission_required, login_required
 from django import forms
 
@@ -76,6 +76,17 @@ def jobappform(request):
 	context = {'form': form}
 	return render(request, 'lfw/jobappform.html', context)
 
+def cltexteditor(request):
+	if request.method == 'POST':
+		form = Cltexteditor(request.POST)
+		if form.is_valid():
+			body = form.save(commit=False)
+			body.user = request.user
+			body.save()
+	form = Cltexteditor()
+	context = {'form': form}
+	return render(request, 'lfw/cltexteditor.html', context)	 
+
 def add_res(request):
 	if request.method == 'POST':
 		form = Resumeform(request.POST)
@@ -109,8 +120,7 @@ def clbuilder(request):
 			cl = form.save(commit=False)
 			cl.user = request.user
 			cl.save()
-	form = Skills_input()
-
+	form = Skills_input.forms.filter(user=request.user)
 	jobapps = Jobapp.objects.filter(user=request.user)
 	skills = Skill.objects.filter(user=request.user)
 	coverletter = Coverletter.objects.filter(user=request.user)

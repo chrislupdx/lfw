@@ -1,12 +1,18 @@
- {% block content %}
- <div class="row">
-    <form class="col s12">
-      <div class="row">
-        <div class="input-field col s12">
-          <textarea id="textarea1" class="materialize-textarea"></textarea>
-          <label for="textarea1">Textarea</label>
-        </div>
-      </div>
-    </form>
-  </div>
+{% extends 'lfw/base.html' %}
+{% load static %}
+{% load material_form %}
+{% block title %}Builder{% endblock %}
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="{% static 'lfw/cl_loader.css' %}">
+{% endblock styles %}
+{% block content %}
+
+
+
+<form action="{% url 'lfw:cltexteditor'%}" method="post">
+  {% csrf_token %}
+    {% form form=form %}{% endform %}
+  <button type="submit">Save Coverletter Draft</button>
+</form>
+
 {% endblock %}

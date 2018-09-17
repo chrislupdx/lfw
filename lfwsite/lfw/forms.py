@@ -35,6 +35,27 @@ class Jobappform(forms.Form):
                 Row('followup_touches', 'first_contacted', 'last_contacted'),
                 Row('date_foundbyuser', 'date_due', 'date_applied', 'date_created'))
 
+class Cltexteditor(ModelForm):
+    class Meta:
+        model = Coverletter
+        fields = ('clcopy',)
+
+class Resumeform(ModelForm):
+    class Meta:
+        model = Resume
+        fields = ('url', 'name',)
+
+class Clform(ModelForm):
+    class Meta:
+        model = Coverletter
+        fields = ('url', 'name',)
+
+
+class Skills_input(ModelForm):
+    class Meta:
+        model = Skill
+        fields = ('name', 'copy',)
+
 
 # class Jobappform(ModelForm):
 #     class Meta:
@@ -53,18 +74,3 @@ class Jobappform(forms.Form):
 #         Row('description', 'url'),
 #         Row('date_rolecreated'),
 #         Row('coverletter', 'resume'))   
-
-class Resumeform(ModelForm):
-    class Meta:
-        model = Resume
-        fields = ('url', 'name',)
-
-class Clform(ModelForm):
-    class Meta:
-        model = Coverletter
-        fields = ('url', 'name',)
-
-class Skills_input(ModelForm):
-    class Meta:
-        model = Skill
-        fields = ('name', 'copy',)

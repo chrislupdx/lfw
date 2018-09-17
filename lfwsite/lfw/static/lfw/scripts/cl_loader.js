@@ -33,14 +33,17 @@ function urldisplay(jobappID){
 	console.log(jobapp)
 	console.log(jobapp.fields.url)
 	if (jobapp.fields.url) {
-		console.log('url exists')
-	if (window.getComputedStyle(clframe).display === 'none') {
-	  	console.log('display is none')
-	      clframe.style.display = "block";
-	  } else {
+		console.log('url exists: ' + jobapp.fields.url)
+		if (window.getComputedStyle(clframe).display === 'none') {
+	  		console.log('display is none')
+	      	clframe.style.display = "block";
+	      	iframe.src = jobapp.fields.url;
+	  	} else {
 	      clframe.style.display = "none";
-	  }
-	}
+	  	}	
+	} else {
+	    clframe.style.display = "none";
+	}	
 
 // i don't think this logic is floipping the switch
 	
