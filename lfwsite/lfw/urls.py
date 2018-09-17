@@ -5,7 +5,7 @@ from . import views
 app_name = 'lfw' # for namespacing
 urlpatterns = [
     path('', views.index, name='index'),
-	path('add_entry/', views.add_entry, name='add_entry'),
+	path('jobappform/', views.jobappform, name='jobappform'),
 	path('add_res/', views.add_res, name='add_res'),
 	path('add_cl/', views.add_cl, name='add_cl'),
 	path('display_jobappview/', views.display_jobappview, name='display_jobappview'),
@@ -20,7 +20,8 @@ urlpatterns = [
 	path('skills_list/', views.clbuilder, name='skills_list'),
 	path('skills_input/', views.clbuilder, name='skills_input'),
 	path('jobapp_loader/', views.jobapp_loader, name='jobapp_loader'),
-	path('cltodo/', views.clbuilder, name='cltodo')
+	path('cltodo/', views.clbuilder, name='cltodo'),
+	path('cltexteditor/', views.clbuilder, name='cltexteditor')
 
 ]
 

@@ -13,11 +13,15 @@
 
  <body>
 
+{% include "lfw/cltodo.html" with jobapps=jobapps %}
+
 {% include "lfw/skills_list.html" with skills=skills %}
 
 {% include "lfw/skills_input.html" with form=form %}
 
 {% include "lfw/cl_loader.html" with jobapps=jobapps %}
+
+{% include "lfw/cltexteditor.html" with coverletter=coverletter %}
 
 {% endblock %}
 {% block scripts %}

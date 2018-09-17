@@ -5,7 +5,7 @@
 
 {% block content %}
 	
-<form action="{% url 'lfw:add_entry'%}" method="post">
+<form action="{% url 'lfw:jobappform'%}" method="post">
 	{% csrf_token %}
     {% form form=form %}{% endform %}
 	<button type="submit">NO TRUTHEXISTS! </button>

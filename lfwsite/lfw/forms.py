@@ -10,6 +10,7 @@ class Jobappform(forms.Form):
     description = forms.CharField(required= False)
     company = forms.CharField(max_length=50, required= False)
     contact = forms.ModelChoiceField(queryset=None, required=False)
+    url = forms.URLField(max_length=400, required=False)
 
     coverletter = forms.ModelChoiceField(queryset=None, required=False) 
     resume = forms.ModelChoiceField(queryset=None, required=False) 
@@ -30,7 +31,7 @@ class Jobappform(forms.Form):
         self.fields['resume'].queryset = Resume.objects.filter(user=user)
     
     layout = Layout('name', 'company', 'description',
-                Row('contact', 'coverletter', 'resume'),
+                Row('contact', 'coverletter', 'resume', 'url'),
                 Row('followup_touches', 'first_contacted', 'last_contacted'),
                 Row('date_foundbyuser', 'date_due', 'date_applied', 'date_created'))
 

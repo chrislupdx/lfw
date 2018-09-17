@@ -2,14 +2,13 @@
 {% block content%}
 
 
-<form action="{% url 'lfw:skills_input'%}" method="post">
+<form action="{% url 'lfw:cltodo'%}" method="post">
 	{% csrf_token %}
     {% form form=form %}{% endform %}
 	<button type="submit">Add Coverletter Element </button>
 </form>
 
-
-<table class = "responsive-table highlight">
+<table id = "cltodotable" class = "responsive-table highlight">
 	<thead>
 		<tr>
 			<th>user</th>

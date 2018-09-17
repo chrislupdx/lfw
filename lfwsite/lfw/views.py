@@ -49,7 +49,7 @@ def display_canvas(request):
 def display_pipeline(request):
 	return render(request,'lfw/pipeline.html', status_context(request))
 
-def add_entry(request):
+def jobappform(request):
 	if request.method == 'POST':
 		form = Jobappform(request.user)
 		app = Jobapp()
@@ -109,17 +109,17 @@ def clbuilder(request):
 			cl = form.save(commit=False)
 			cl.user = request.user
 			cl.save()
-			return redirect(reverse('lfw:clbuilder'))
 	form = Skills_input()
 
 	jobapps = Jobapp.objects.filter(user=request.user)
 	skills = Skill.objects.filter(user=request.user)
+	coverletter = Coverletter.objects.filter(user=request.user)
 
 	context = {
 	'skills':skills,
 	'jobapps':jobapps,
 	'form': form,
-	
+	'coverletter' : coverletter,
 	}
 	return render(request, 'lfw/clbuilder.html', context)
 
