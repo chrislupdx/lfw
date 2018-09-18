@@ -86,17 +86,22 @@ class Resume(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	url = models.URLField(null=True, blank=True)
 	date_created = models.DateTimeField(blank=True, null=True)
+	
+class Skill(models.Model):
+	user = models.ForeignKey(User, on_delete=models.CASCADE)
+	name = models.CharField(max_length=50)
+	copy = models.TextField()
 
 	def __str__(self):
-		return str(self.name)
+		return self.name +': '+ self.copy 
 
 class Coverletter(models.Model):
-	
 	name = models.CharField(max_length=50, blank=True, null=True)
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	url = models.URLField(null=True, blank=True)
 	clcopy = models.TextField()
-
+	skills = models.ManyToManyField(Skill, blank=True, related_name='coverletters')
+	
 class Jobapp(models.Model):
 	name = models.CharField(max_length=50)
 	description = models.TextField(null=True, blank=True)
@@ -116,7 +121,6 @@ class Jobapp(models.Model):
 	date_applied = models.DateTimeField(blank=True, null=True)
 	date_created = models.DateTimeField(default=datetime.now())
 
-
 	JOBAPP_STATS_CHOICES = (
 		('PS', 'PROSPECT'),
 		('RO', 'REACHEDOUT'),
@@ -134,12 +138,6 @@ class Jobapp(models.Model):
 		now = datetime.now(timezone.utc)
 		elapsed = now - self.date_created
 		return elapsed	
-	
-class Skill(models.Model):
-	user = models.ForeignKey(User, on_delete=models.CASCADE)
-	name = models.CharField(max_length=50)
-	copy = models.TextField()
-	coverletter = models.ManyToManyField(Coverletter, blank=True, related_name='skills')
 
 	def __str__(self):
-		return str(self.name)
+		return self.name

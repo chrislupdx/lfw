@@ -35,15 +35,19 @@ class Jobappform(forms.Form):
                 Row('followup_touches', 'first_contacted', 'last_contacted'),
                 Row('date_foundbyuser', 'date_due', 'date_applied', 'date_created'))
 
-class Coverletterobject(forms.Form):
-    skills = 
-    coverlettercopy = 
-    jobapp = 
+class CoverletterForm(forms.Form):
+    skills = forms.ModelMultipleChoiceField(queryset=None, widget=forms.CheckboxSelectMultiple)
+    coverlettercopy = forms.CharField(widget=forms.Textarea)
 
-class Cltexteditor(ModelForm):
-    class Meta:
-        model = Coverletter
-        fields = ('clcopy',)
+
+    def __init__(self, user, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.user = user
+        self.fields['skills'].queryset = Skill.objects.filter(user=user)
+
+    # layout = Layout(
+
+    #     )
 
 class Resumeform(ModelForm):
     class Meta:

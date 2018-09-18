@@ -2,7 +2,7 @@ from django.core import serializers
 from django.http import HttpResponse, HttpResponseRedirect, HttpRequest, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404, reverse
 from .models import Jobapp, Resume, Coverletter, Skill
-from .forms import Jobappform, Resumeform, Clform, Skills_input, Cltexteditor
+from .forms import Jobappform, Resumeform, Clform, Skills_input, CoverletterForm
 from django.contrib.auth.decorators import permission_required, login_required
 from django import forms
 
@@ -55,7 +55,7 @@ def jobappform(request):
 		app = Jobapp()
 		for k, v in request.POST.items():
 			print('label: {}'.format(k))
-			print('value`: {}'.format(v))
+			print('value: {}'.format(v))
 		app.name = request.POST.get('name')
 		app.user = request.user
 		app.company = request.POST.get('company')
@@ -115,14 +115,25 @@ def add_cl(request):
 
 def clbuilder(request):
 	if request.method == 'POST':
-		form = Cltexteditor(request.POST)
-		if form.is_valid():
-			coverletter = form.save(commit=False)
-			coverletter.user = request.user
-			coverletter.save()
-		print('printing jobapp:')
-		print(request.POST.get('jobapp'))
-	form = Cltexteditor()	
+		form = CoverletterForm(request.user)
+		coverletter = Coverletter()
+		coverletter.user = request.user
+		coverletter.clcopy = request.POST.get('coverlettercopy')
+		coverletter.save()
+		skills = request.POST.getlist('skills')
+		for skillID in skills:
+			skill = get_object_or_404(Skill, pk=skillID)
+			coverletter.skills.add(skill)
+		coverletter.save()
+		jobappID = request.POST.get('jobapp')
+		print(jobappID)
+		if jobappID and jobapp != "none":
+			jobappID = int(jobappID)
+			jobapp = get_object_or_404(Jobapp, pk=jobappID)
+			jobapp.coverletter = coverletter
+			jobapp.save()
+
+	form = CoverletterForm(request.user)	
 
 	jobapps = Jobapp.objects.filter(user=request.user)
 	skills = Skill.objects.filter(user=request.user)

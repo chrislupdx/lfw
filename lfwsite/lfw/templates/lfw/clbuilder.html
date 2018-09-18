@@ -1,17 +1,18 @@
 {% extends 'lfw/base.html' %}
 {% load static %}
+{% load material_form %}
+
 {% block title %}Builder{% endblock %}
 {% block styles %}
 <link rel="stylesheet" type="text/css" href="{% static 'lfw/clbuilder.css' %}">
 {% endblock styles %}
 {% block content %}
 
-{% include "lfw/skills_list.html" with skills=skills %}
 {% include "lfw/cl_loader.html" with jobapps=jobapps %}
-{% include "lfw/cltexteditor.html" with jobapps=jobapps %}
 
 <form action="{% url 'lfw:clbuilder'%}" method="post">
   {% csrf_token %}
+  {% form form=form %}{% endform %}
   <button type="submit">Save Coverletter Draft</button>
 </form>
 
