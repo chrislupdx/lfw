@@ -35,6 +35,11 @@ class Jobappform(forms.Form):
                 Row('followup_touches', 'first_contacted', 'last_contacted'),
                 Row('date_foundbyuser', 'date_due', 'date_applied', 'date_created'))
 
+class Coverletterobject(forms.Form):
+    skills = 
+    coverlettercopy = 
+    jobapp = 
+
 class Cltexteditor(ModelForm):
     class Meta:
         model = Coverletter
