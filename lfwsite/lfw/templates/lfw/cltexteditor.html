@@ -1,18 +1,4 @@
-{% extends 'lfw/base.html' %}
-{% load static %}
 {% load material_form %}
-{% block title %}Builder{% endblock %}
-{% block styles %}
-<link rel="stylesheet" type="text/css" href="{% static 'lfw/cl_loader.css' %}">
-{% endblock styles %}
-{% block content %}
 
-
-
-<form action="{% url 'lfw:cltexteditor'%}" method="post">
-  {% csrf_token %}
     {% form form=form %}{% endform %}
-  <button type="submit">Save Coverletter Draft</button>
-</form>
 
-{% endblock %}

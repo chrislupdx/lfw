@@ -2,15 +2,18 @@
 {% load static %}
 {% block title %}Builder{% endblock %}
 {% block styles %}
-<link rel="stylesheet" type="text/css" href="{% static 'lfw/cl_loader.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'lfw/clbuilder.css' %}">
 {% endblock styles %}
 {% block content %}
-
+<form action="{% url 'lfw:clbuilder'%}" method="post">
+  {% csrf_token %}
 {% include "lfw/skills_list.html" with skills=skills %}
 
-{% include "lfw/skills_input.html" with form=form %}
+{% include "lfw/cltexteditor.html" with form=form %}
 
 {% include "lfw/cl_loader.html" with jobapps=jobapps %}
+  <button type="submit">Save Coverletter Draft</button>
+</form>
 
 {% endblock %}
 {% block scripts %}

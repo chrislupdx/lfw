@@ -1,9 +1,0 @@
-{% load material_form %}
-{% block content%}
-
-<select id="ddlInstititions">
-   <option value="%">---------</option>
-   {% for entry in institutions %}
-    <option value="{{ entry.id }}">{{ entry.name }}</option>
-   {% endfor %}
-</select>

@@ -18,10 +18,9 @@ urlpatterns = [
 	path('display_elapsed/', views.display_elapsed, name='display_elapsed'),
 	path('clbuilder/', views.clbuilder, name='clbuilder'),
 	path('skills_list/', views.clbuilder, name='skills_list'),
-	path('skills_input/', views.clbuilder, name='skills_input'),
+	path('add_skill/', views.skills_input, name='skills_input'),
 	path('jobapp_loader/', views.jobapp_loader, name='jobapp_loader'),
 	path('cltodo/', views.clbuilder, name='cltodo'),
-	path('cltexteditor/', views.cltexteditor, name='cltexteditor')
 
 ]
 

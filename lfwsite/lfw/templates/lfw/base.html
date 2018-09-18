@@ -41,12 +41,12 @@
 </ul>
 <nav>
   <div class="nav-wrapper">
-    <a href="#!" class="brand-logo">Logo</a>
     <ul class="right hide-on-med-and-down">
-      <li><a href="jobappform.html">Add Form</a></li>
-      <li><a href="index.html">Page</a></li>
-      <!-- Dropdown Trigger -->
-      <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">Dropdown<i class="material-icons right">arrow_drop_down</i></a></li>
+      <li><a href="{% url 'lfw:jobappform' %}">Jobappform</a></li>
+      <li><a href="{% url 'lfw:index' %}">Index</a></li>
+      <li><a href="{% url 'lfw:clbuilder' %}">Coverletter Builder</a></li>
+      <li><a href="{% url 'lfw:add_res' %}">Add Resume</a></li>
+      <li><a href="{% url 'lfw:skills_input' %}">Add Skill</a></li>
     </ul>
   </div>
 </nav>

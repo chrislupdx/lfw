@@ -76,16 +76,16 @@ def jobappform(request):
 	context = {'form': form}
 	return render(request, 'lfw/jobappform.html', context)
 
-def cltexteditor(request):
+def skills_input(request):
 	if request.method == 'POST':
-		form = Cltexteditor(request.POST)
+		form = Skills_input(request.POST)
 		if form.is_valid():
-			body = form.save(commit=False)
-			body.user = request.user
-			body.save()
-	form = Cltexteditor()
+			cl = form.save(commit=False)
+			cl.user = request.user
+			cl.save()
+	form = Skills_input()
 	context = {'form': form}
-	return render(request, 'lfw/cltexteditor.html', context)	 
+	return render(request, 'lfw/skills_input.html', context)	 
 
 def add_res(request):
 	if request.method == 'POST':
@@ -115,12 +115,15 @@ def add_cl(request):
 
 def clbuilder(request):
 	if request.method == 'POST':
-		form = Skills_input(request.POST)
+		form = Cltexteditor(request.POST)
 		if form.is_valid():
-			cl = form.save(commit=False)
-			cl.user = request.user
-			cl.save()
-	form = Skills_input.forms.filter(user=request.user)
+			coverletter = form.save(commit=False)
+			coverletter.user = request.user
+			coverletter.save()
+		print('printing jobapp:')
+		print(request.POST.get('jobapp'))
+	form = Cltexteditor()	
+
 	jobapps = Jobapp.objects.filter(user=request.user)
 	skills = Skill.objects.filter(user=request.user)
 	coverletter = Coverletter.objects.filter(user=request.user)
