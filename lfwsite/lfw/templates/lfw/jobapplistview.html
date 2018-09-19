@@ -1,6 +1,9 @@
+{% extends 'lfw/base.html' %}
+{% load static %}
 {% block content%}
 
-<h4>JobApps</h4>
+
+<h4>Job App List View</h4>
 <table class = "responsive-table highlight">
 	<thead>
 		<tr>
@@ -8,21 +11,27 @@
 			<th>description</th>
 			<th>company</th>
 			<th>contact</th>
+			<th>resume</th>
 			<th>coverletter</th>
+			<th>date_created</th>
 		</tr>
 	</thead>
 	
-{% for item in jobapps %}
+{% for item in jobapp %}
 	<tbody>
 		<tr>
-			<td><a href="{% url 'lfw:edit_jobapp' pk=item.pk%}">{{ item.name }}</a></td>
+			<td>{{ item.name }}</td>
 			<td>{{ item.description }}</td>
 			<td>{{ item.company }}</td>
 			<td>{{ item.contact }}</td>
-			<td><a href="{% url 'lfw:cllistview'%}">{{ item.coverletter }}</a></td>
+			<td>{{ item.resume }}</td>
+			<td>{{ item.coverletter }}</td>
+			<td>{{ item.date_created }}</td>
 		</tr>
 	</tbody>
 {% endfor %}
 </table>	
+
 {% endblock %}
+
 

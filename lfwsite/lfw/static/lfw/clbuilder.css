@@ -8,3 +8,11 @@
 
 }
 
+.coverlettertext {
+	height: 250px !important;
+	background-color: blue;
+}
+
+#clframe{
+	display:none;
+}

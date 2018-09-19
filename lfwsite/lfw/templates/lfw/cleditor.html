@@ -8,7 +8,7 @@
 {% endblock styles %}
 {% block content %}
 
-<form action="{% url 'lfw:clbuilder'%}" method="post">
+<form action="{% url 'lfw:edit_coverletter' pk=pk %}" method="post">
   {% csrf_token %}
   {% include "lfw/cl_loader.html" with jobapps=jobapps %}
   {% form form=form %}{% endform %}

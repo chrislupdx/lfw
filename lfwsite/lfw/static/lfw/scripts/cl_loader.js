@@ -31,8 +31,7 @@ dropdown.addEventListener('change',
 function urldisplay(jobappID){
 	jobapp = findJobapp(jobappID)
 	console.log(jobapp)
-	console.log(jobapp.fields.url)
-	if (jobapp.fields.url) {
+	if (jobapp && jobapp.fields.url) {
 		console.log('url exists: ' + jobapp.fields.url)
 		if (window.getComputedStyle(clframe).display === 'none') {
 	  		console.log('display is none')

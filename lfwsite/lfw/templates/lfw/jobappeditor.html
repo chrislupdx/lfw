@@ -1,0 +1,13 @@
+{% extends "lfw/base.html" %}
+{% load material_form %}
+{% include 'material/includes/material_css.html' %}
+{% include 'material/includes/material_js.html' %}
+
+{% block content %}
+	
+<form action="{% url 'lfw:edit_jobapp' pk=pk %}" method="post">
+	{% csrf_token %}
+    {% form form=form %}{% endform %}
+	<button type="submit">SUBMIT JOBAPP EDIT</button>
+</form>
+{% endblock content %}

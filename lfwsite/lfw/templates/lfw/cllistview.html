@@ -1,0 +1,37 @@
+{% extends 'lfw/base.html' %}
+{% load static %}
+{% block content%}
+
+
+<h4>Coverletter Fieldss</h4>
+<table class = "responsive-table highlight">
+	<thead>
+		<tr>
+			<th>name</th>
+			<th>url</th>
+			<th>clcopy</th>
+			<th>skills</th>
+			<th>Jobapp</th>
+		</tr>
+	</thead>
+	
+{% for item in coverletter %}
+	<tbody>
+		<tr>
+			<td>{{ item.name }}</td>
+			<td>{{ item.url }}</td>
+			<td><a href="{% url 'lfw:edit_coverletter' pk=item.pk %}">{{ item.clcopy }}</a></td>
+			<td>{{ item.skills }}</td>
+			<td><a href="{% url 'lfw:jobapplistview'%}">
+				{% for app in item.jobapp.all %}
+					{{app}}
+				{% endfor %}
+			</a></td>		
+		</tr>
+	</tbody>
+{% endfor %}
+</table>	
+
+{% endblock %}
+
+

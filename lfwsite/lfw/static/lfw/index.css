@@ -1,3 +1,8 @@
+#pipeline tbody{
+	height: 250px !important;
+	max-width: 950px;
+}
+
 .wrapper {
   display: grid;
   grid-template-columns: 200px 200px 200px;

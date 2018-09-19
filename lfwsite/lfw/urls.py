@@ -21,7 +21,12 @@ urlpatterns = [
 	path('add_skill/', views.skills_input, name='skills_input'),
 	path('jobapp_loader/', views.jobapp_loader, name='jobapp_loader'),
 	path('cltodo/', views.clbuilder, name='cltodo'),
-
+	path('cllistview/', views.cllistview, name='cllistview'),
+	path('jobapplistview/', views.jobapplistview, name='jobapplistview'),
+	path('coverletter/edit/<int:pk>/', views.edit_coverletter, name='edit_coverletter'),
+	path('edit_jobapp/<int:pk>/', views.edit_jobapp, name='edit_jobapp'),
+	path('cllistview/', views.cllistview, name='cllistview'),
+	path('jobappstatusupdate/<int:pk>/', views.move_jobapp_status, name='jobappstatusupdate'),
 ]
 
 #Add Django site authentication urls (for login, logout, password management)

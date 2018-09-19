@@ -102,6 +102,14 @@ class Coverletter(models.Model):
 	clcopy = models.TextField()
 	skills = models.ManyToManyField(Skill, blank=True, related_name='coverletters')
 	
+	# def __str__(self):
+	# 	if self.jobapp:
+	# 		return str(self.jobapp.all()[0])
+	# 	elif self.name:
+	# 		return self.name
+	# 	else:
+	# 		return 'anonymous coverletter'
+
 class Jobapp(models.Model):
 	name = models.CharField(max_length=50)
 	description = models.TextField(null=True, blank=True)
@@ -111,7 +119,7 @@ class Jobapp(models.Model):
 	contact = models.ManyToManyField(Contact, blank=True)
 	url = models.URLField(null=True, blank=True)
 	resume = models.ForeignKey(Resume, on_delete=models.SET_NULL, null=True, blank=True)
-	coverletter = models.ForeignKey(Coverletter, on_delete=models.SET_NULL, null=True, blank=True) 
+	coverletter = models.ForeignKey(Coverletter, on_delete=models.SET_NULL, null=True, blank=True, related_name='jobapp') 
 	referred_by = models.ForeignKey(Contact, on_delete=models.SET_NULL, null=True, blank=True, related_name='referred_by')
 
 	first_contacted = models.DateTimeField(blank=True, null=True)

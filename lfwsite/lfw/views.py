@@ -51,7 +51,7 @@ def display_pipeline(request):
 
 def jobappform(request):
 	if request.method == 'POST':
-		form = Jobappform(request.user)
+		form = Jobappform(user=request.user)
 		app = Jobapp()
 		for k, v in request.POST.items():
 			print('label: {}'.format(k))
@@ -62,8 +62,11 @@ def jobappform(request):
 		app.description = request.POST.get('description')
 		app.url = request. POST.get('url')
 		app.date_rolecreated = request.POST.get('date_rolecreated')
-		app.resume = Resume.objects.get(pk=request.POST.get('resume'))
-		app.coverletter = Coverletter.objects.get(pk=request.POST.get('coverletter'))
+		print(request.POST.get('resume'))
+		if request.POST.get('resume'):
+			app.resume = Resume.objects.get(pk=request.POST.get('resume'))
+		if request.POST.get('coverletter'): 
+			app.coverletter = Coverletter.objects.get(pk=request.POST.get('coverletter'))
 		app.save()
 		# if form.is_valid():
 		# 	print('addentry is valdi')
@@ -120,14 +123,15 @@ def clbuilder(request):
 		coverletter.user = request.user
 		coverletter.clcopy = request.POST.get('coverlettercopy')
 		coverletter.save()
+		
 		skills = request.POST.getlist('skills')
 		for skillID in skills:
 			skill = get_object_or_404(Skill, pk=skillID)
 			coverletter.skills.add(skill)
 		coverletter.save()
+		
 		jobappID = request.POST.get('jobapp')
-		print(jobappID)
-		if jobappID and jobapp != "none":
+		if jobappID and jobappID != "none":
 			jobappID = int(jobappID)
 			jobapp = get_object_or_404(Jobapp, pk=jobappID)
 			jobapp.coverletter = coverletter
@@ -165,6 +169,104 @@ def status_context(request):
 def jobapp_loader(request):
 	jobapps = serializers.serialize("json", Jobapp.objects.filter(user=request.user))
 	return JsonResponse(jobapps, safe=False)
+
+def cllistview(request):
+	coverletter = Coverletter.objects.filter(user=request.user)
+	context = {'coverletter' :coverletter,}
+	return render(request, 'lfw/cllistview.html', context)
+ 
+def jobapplistview(request):
+	jobapp = Jobapp.objects.filter(user=request.user)
+	context = {'jobapp' :jobapp,}
+	return render(request, 'lfw/jobapplistview.html', context)
+
+def edit_coverletter(request, pk):
+	coverletter = get_object_or_404(Coverletter, pk=pk)
+
+	if request.method == 'POST':
+		form = CoverletterForm(request.user)
+		coverletter.clcopy = request.POST.get('coverlettercopy')
+		coverletter.save()
+		
+		skills = request.POST.getlist('skills')
+		for skillID in skills:
+			skill = get_object_or_404(Skill, pk=skillID)
+			coverletter.skills.add(skill)
+		coverletter.save()
+
+		jobappID = request.POST.get('jobapp')
+		if jobappID and jobappID != "none":
+			jobappID = int(jobappID)
+			jobapp = get_object_or_404(Jobapp, pk=jobappID)
+			jobapp.coverletter = coverletter
+			jobapp.save()
+
+		return redirect('lfw:edit_coverletter', pk=pk)
+
+	jobapps = Jobapp.objects.filter(user=request.user)
+	form = CoverletterForm(request.user, initial={ 'coverlettercopy':coverletter.clcopy})
+	return render(request, 'lfw/cleditor.html', {
+		'form': form,
+		'jobapps':jobapps,
+		'pk': pk
+	})
+
+def edit_jobapp(request, pk):
+	app = get_object_or_404(Jobapp, pk=pk)
+
+	if request.method == 'POST':
+		form = Jobappform(user=request.user)
+		for k, v in request.POST.items():
+			print('label: {}'.format(k))
+			print('value: {}'.format(v))
+		app.name = request.POST.get('name')
+		app.user = request.user
+		app.company = request.POST.get('company')
+		app.description = request.POST.get('description')
+		app.url = request. POST.get('url')
+		app.date_rolecreated = request.POST.get('date_rolecreated')
+		print(request.POST.get('resume'))
+		if request.POST.get('resume'):
+			app.resume = Resume.objects.get(pk=request.POST.get('resume'))
+		if request.POST.get('coverletter'): 
+			app.coverletter = Coverletter.objects.get(pk=request.POST.get('coverletter'))
+		app.save()
+		# if form.is_valid():
+		# 	print('addentry is valdi')
+		# 	jobapp = form.save(commit=False)
+		# 	jobapp.exuser = request.user 
+		# 	jobapp.save()
+		return redirect(reverse('lfw:index'))
+
+		return redirect('lfw:edit_jobapp', pk=pk)
+
+	existing_app = {
+		'name': app.name,
+		'company': app.company,
+		'description': app.description,
+		'url': app.url,
+		'date_rolecreated': app.date_rolecreated,
+		'resume': app.resume,
+		'coverletter': app.coverletter
+	}
+	form = Jobappform(request.user, initial=existing_app)
+	return render(request, 'lfw/jobappeditor.html', {
+		'form': form,
+		'pk': pk
+	})
+
+def move_jobapp_status(request, pk):
+	print(MOOOSTaCHES)
+	app = get_object_or_404(Jobapp, pk=pk)
+	if app.pipeline_status == 'PS':
+		app.pipeline_status = 'RO'
+	if app.pipeline_status == 'RO':
+		app.pipeline_status = 'QD'
+	if app.pipeline_status == 'QD':
+		app.pipeline_status = 'SN'
+		app.save()
+	return redirect('lfw/index.html')
+
 
 # @login_required
 # def index_view(request):

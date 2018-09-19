@@ -37,7 +37,8 @@ class Jobappform(forms.Form):
 
 class CoverletterForm(forms.Form):
     skills = forms.ModelMultipleChoiceField(queryset=None, widget=forms.CheckboxSelectMultiple)
-    coverlettercopy = forms.CharField(widget=forms.Textarea)
+
+    coverlettercopy = forms.CharField(widget=forms.Textarea(attrs={'class': 'coverlettertext'}))
 
 
     def __init__(self, user, *args, **kwargs):
@@ -53,7 +54,6 @@ class Resumeform(ModelForm):
     class Meta:
         model = Resume
         fields = ('url', 'name',)
-
 class Clform(ModelForm):
     class Meta:
         model = Coverletter
