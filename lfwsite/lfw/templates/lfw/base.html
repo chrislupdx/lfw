@@ -34,24 +34,27 @@
 <body>
 <!-- Dropdown Structure -->
 <ul id="dropdown1" class="dropdown-content">
-  <li><a href="#!">one</a></li>
-  <li><a href="#!">two</a></li>
+  <li><a href="{% url 'lfw:add_res' %}">Add Resume</a></li>
+  <li><a href="{% url 'lfw:skills_input' %}">Add Skill</a></li>
+  <li><a href="{% url 'lfw:jobappform' %}">Add a Job</a></li>
   <li class="divider"></li>
-  <li><a href="#!">three</a></li>
 </ul>
 <nav>
   <div class="nav-wrapper">
     <ul class="right hide-on-med-and-down">
-      <li><a href="{% url 'lfw:index' %}">Index</a></li>
+      <li><a href="{% url 'lfw:index' %}">Home</a></li>
       <li><a href="{% url 'lfw:clbuilder' %}">Coverletter Builder</a></li>
-      <li><a href="{% url 'lfw:jobappform' %}">Jobappform</a></li>
-      <li><a href="{% url 'lfw:add_res' %}">Add Resume</a></li>
-      <li><a href="{% url 'lfw:skills_input' %}">Add Skill</a></li>
+  
+      <li><a href="{% url 'lfw:cllistview' %}">Coverletter List View</a></li>
+      <li><a href="{% url 'lfw:jobapplistview' %}">Jobapp List</a></li>
+   
+      <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">Add Things<i class="material-icons right">arrow_drop_down</i></a></li>
     </ul>
   </div>
 </nav>
         
     {% block content%}{% endblock%}
+
     {% block nav%} 
      <ul class="sidebar-nav">
    {% if user.is_authenticated %}
@@ -60,11 +63,13 @@
    {% else %}
      <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>
    {% endif %}
+     </ul>
+
    {% endblock%}
-  </ul>
-  {% block scripts %}{% endblock scripts %}
+{% block scripts %}  
+{% endblock scripts %}  
+    <script src="{% static 'lfw/scripts/base.js' %}"></script> 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
 </body>
 </html>
-
 

@@ -10,12 +10,13 @@
 
 <form action="{% url 'lfw:clbuilder'%}" method="post">
   {% csrf_token %}
+  {% include "lfw/coverlettertemplateselect.html" with coverlettertemplates=coverlettertemplates %}
   {% include "lfw/cl_loader.html" with jobapps=jobapps %}
   {% form form=form %}{% endform %}
   <button type="submit">Save Coverletter Draft</button>
 </form>
-
 {% endblock %}
 {% block scripts %}
 	<script src="{% static 'lfw/scripts/cl_loader.js' %}"></script>	
+	<script src="{% static 'lfw/scripts/coverlettertemplateselect.js' %}"></script>	
 {% endblock scripts %}

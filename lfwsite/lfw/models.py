@@ -95,13 +95,18 @@ class Skill(models.Model):
 	def __str__(self):
 		return self.name +': '+ self.copy 
 
+class Coverlettertemplate(models.Model):
+	name = models.CharField(max_length=50, blank=True, null=True)
+	user = models.ForeignKey(User, on_delete=models.CASCADE)
+	coverlettertext = models.TextField()
+
 class Coverletter(models.Model):
 	name = models.CharField(max_length=50, blank=True, null=True)
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	url = models.URLField(null=True, blank=True)
 	clcopy = models.TextField()
 	skills = models.ManyToManyField(Skill, blank=True, related_name='coverletters')
-	
+	template = models.ForeignKey(Coverlettertemplate, on_delete=models.SET_NULL, blank=True, null=True)
 	# def __str__(self):
 	# 	if self.jobapp:
 	# 		return str(self.jobapp.all()[0])

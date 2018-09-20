@@ -27,6 +27,9 @@ urlpatterns = [
 	path('edit_jobapp/<int:pk>/', views.edit_jobapp, name='edit_jobapp'),
 	path('cllistview/', views.cllistview, name='cllistview'),
 	path('jobappstatusupdate/<int:pk>/', views.move_jobapp_status, name='jobappstatusupdate'),
+	path('coverlettertemplateselect/', views.coverlettertemplateselect, name='coverlettertemplateselect'),
+	path('coverlettertext_loader/', views.coverlettertemplate_loader, name='coverlettertext_loader'),
+
 ]
 
 #Add Django site authentication urls (for login, logout, password management)

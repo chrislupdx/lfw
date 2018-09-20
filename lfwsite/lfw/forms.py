@@ -31,8 +31,8 @@ class Jobappform(forms.Form):
         self.fields['resume'].queryset = Resume.objects.filter(user=user)
     
     layout = Layout('name', 'company', 'description',
-                Row('contact', 'coverletter', 'resume', 'url'),
-                Row('followup_touches', 'first_contacted', 'last_contacted'),
+                Row('coverletter', 'resume', 'url'),
+                Row('first_contacted', 'last_contacted'),
                 Row('date_foundbyuser', 'date_due', 'date_applied', 'date_created'))
 
 class CoverletterForm(forms.Form):

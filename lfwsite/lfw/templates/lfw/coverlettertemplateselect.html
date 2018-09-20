@@ -1,0 +1,8 @@
+{% load material_form %}
+
+<select id="coverletterselector" name="coverletterselector">
+    <option value="none">Pick a Coverletter Template</option>
+    {% for x in coverlettertemplates %}
+    <option value="{{ x.id }}">{{ x.name }}</option>
+    {% endfor %}
+</select>

@@ -1,7 +1,7 @@
 from django.core import serializers
 from django.http import HttpResponse, HttpResponseRedirect, HttpRequest, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404, reverse
-from .models import Jobapp, Resume, Coverletter, Skill
+from .models import Jobapp, Resume, Coverletter, Skill, Coverlettertemplate
 from .forms import Jobappform, Resumeform, Clform, Skills_input, CoverletterForm
 from django.contrib.auth.decorators import permission_required, login_required
 from django import forms
@@ -139,15 +139,15 @@ def clbuilder(request):
 
 	form = CoverletterForm(request.user)	
 
+	coverlettertemplates = Coverlettertemplate.objects.filter(user=request.user)
 	jobapps = Jobapp.objects.filter(user=request.user)
 	skills = Skill.objects.filter(user=request.user)
-	coverletter = Coverletter.objects.filter(user=request.user)
 
 	context = {
 	'skills':skills,
 	'jobapps':jobapps,
 	'form': form,
-	'coverletter' : coverletter,
+	'coverlettertemplates' :coverlettertemplates,
 	}
 	return render(request, 'lfw/clbuilder.html', context)
 
@@ -169,6 +169,10 @@ def status_context(request):
 def jobapp_loader(request):
 	jobapps = serializers.serialize("json", Jobapp.objects.filter(user=request.user))
 	return JsonResponse(jobapps, safe=False)
+
+def coverlettertemplate_loader(request):
+	coverlettertemplates = serializers.serialize("json", Coverlettertemplate.objects.filter(user=request.user))
+	return JsonResponse(coverlettertemplates, safe=False)
 
 def cllistview(request):
 	coverletter = Coverletter.objects.filter(user=request.user)
@@ -256,16 +260,23 @@ def edit_jobapp(request, pk):
 	})
 
 def move_jobapp_status(request, pk):
-	print(MOOOSTaCHES)
 	app = get_object_or_404(Jobapp, pk=pk)
+
 	if app.pipeline_status == 'PS':
 		app.pipeline_status = 'RO'
-	if app.pipeline_status == 'RO':
+	
+	elif app.pipeline_status == 'RO':
 		app.pipeline_status = 'QD'
-	if app.pipeline_status == 'QD':
+	
+	elif app.pipeline_status == 'QD':
 		app.pipeline_status = 'SN'
-		app.save()
-	return redirect('lfw/index.html')
+	app.save()
+	return redirect('lfw:index')
+
+def coverlettertemplateselect(request):
+	coverletter = Coverletter.objects.filter(user=request.user)
+	context = {'coverletter' : coverletter,}
+	return request
 
 
 # @login_required

@@ -20,12 +20,12 @@
 {% for item in jobapp %}
 	<tbody>
 		<tr>
-			<td>{{ item.name }}</td>
+			<td><a href="{% url 'lfw:edit_jobapp' pk=item.pk%}">{{ item.name }}</a></td>
 			<td>{{ item.description }}</td>
 			<td>{{ item.company }}</td>
 			<td>{{ item.contact }}</td>
 			<td>{{ item.resume }}</td>
-			<td>{{ item.coverletter }}</td>
+			<td><a href="{% url 'lfw:cllistview'%}">{{ item.coverletter }}</a></td>
 			<td>{{ item.date_created }}</td>
 		</tr>
 	</tbody>
