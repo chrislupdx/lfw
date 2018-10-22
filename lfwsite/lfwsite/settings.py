@@ -25,7 +25,7 @@ SECRET_KEY = '30tpi5$4^05hr70(coin7zrv=z^*^vbqk@0r*!vhp39n7swb-x'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [curiouscoyote.pythonanywhere.com]
+ALLOWED_HOSTS = ['curiouscoyote.pythonanywhere.com']
 
 
 # Application definition
