@@ -9,6 +9,7 @@
 			<th>company</th>
 			<th>contact</th>
 			<th>coverletter</th>
+			<th>date added</th>
 		</tr>
 	</thead>
 	
@@ -20,6 +21,7 @@
 			<td>{{ item.company }}</td>
 			<td>{{ item.contact }}</td>
 			<td><a href="{% url 'lfw:cllistview'%}">{{ item.coverletter }}</a></td>
+			<td>{{ item.date_created }}</td>
 		</tr>
 	</tbody>
 {% endfor %}
