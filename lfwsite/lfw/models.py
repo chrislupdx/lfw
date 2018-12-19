@@ -47,7 +47,7 @@ class Contact(models.Model):
 	twitter = models.URLField(null=True, blank=True)
 	years_at_company = models.IntegerField(null=True, blank=True)
 	title = models.CharField(max_length=50)
-	
+
 	date_met = models.DateTimeField(blank=True, null=True)
 	last_soft_communication = models.DateTimeField(blank=True, null=True)
 	last_contacted = models.DateTimeField(blank=True, null=True)
@@ -86,14 +86,14 @@ class Resume(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	url = models.URLField(null=True, blank=True)
 	date_created = models.DateTimeField(blank=True, null=True)
-	
+
 class Skill(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	name = models.CharField(max_length=50)
 	copy = models.TextField()
 
 	def __str__(self):
-		return self.name +': '+ self.copy 
+		return self.name +': '+ self.copy
 
 class Coverlettertemplate(models.Model):
 	name = models.CharField(max_length=50, blank=True, null=True)
@@ -124,7 +124,7 @@ class Jobapp(models.Model):
 	contact = models.ManyToManyField(Contact, blank=True)
 	url = models.URLField(null=True, blank=True)
 	resume = models.ForeignKey(Resume, on_delete=models.SET_NULL, null=True, blank=True)
-	coverletter = models.ForeignKey(Coverletter, on_delete=models.SET_NULL, null=True, blank=True, related_name='jobapp') 
+	coverletter = models.ForeignKey(Coverletter, on_delete=models.SET_NULL, null=True, blank=True, related_name='jobapp')
 	referred_by = models.ForeignKey(Contact, on_delete=models.SET_NULL, null=True, blank=True, related_name='referred_by')
 
 	first_contacted = models.DateTimeField(blank=True, null=True)
@@ -146,11 +146,11 @@ class Jobapp(models.Model):
 		default='PS',
 		)
 
-	@property	
+	@property
 	def time_elapsed(self):
 		now = datetime.now(timezone.utc)
 		elapsed = now - self.date_created
-		return elapsed	
+		return elapsed
 
 	def __str__(self):
 		return self.name
